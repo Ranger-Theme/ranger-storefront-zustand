@@ -2,10 +2,10 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 
 import { AppStoreProvider } from '@/providers'
-import type { AppState } from '@/store'
+import type { NextState } from '@/store'
 
 interface NextAppProps extends AppProps {
-  initialState: AppState
+  initialState: NextState
 }
 
 const App = ({ Component, pageProps, initialState }: NextAppProps) => {
@@ -18,8 +18,10 @@ const App = ({ Component, pageProps, initialState }: NextAppProps) => {
 
 App.getInitialProps = async () => {
   // Fetch initial data from an API or any other data source
-  const initialState: AppState = {
-    count: 10
+  const initialState: NextState = {
+    app: {
+      count: 10
+    }
   }
 
   return { initialState }

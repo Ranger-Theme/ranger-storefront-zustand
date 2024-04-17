@@ -1,23 +1,22 @@
 import { createContext, useRef, useContext } from 'react'
 import { useStore } from 'zustand'
 import type { ReactNode } from 'react'
-import type { StoreApi } from 'zustand'
 
-import { createAppStore } from '@/store'
-import type { AppStore, AppState } from '@/store'
+import { createNextStore } from '@/store'
+import type { NextStore, NextState, AppStore } from '@/store'
 
-const AppStoreContext = createContext<StoreApi<AppStore> | null>(null)
+const AppStoreContext = createContext<NextStore | null>(null)
 
 export interface AppStoreProviderProps {
   children: ReactNode
-  state: AppState
+  state: NextState
 }
 
 export const AppStoreProvider = ({ children, state }: AppStoreProviderProps) => {
-  const storeRef = useRef<StoreApi<AppStore>>()
+  const storeRef = useRef<NextStore>()
 
   if (!storeRef.current) {
-    storeRef.current = createAppStore(state)
+    storeRef.current = createNextStore(state)
   }
 
   return <AppStoreContext.Provider value={storeRef.current}>{children}</AppStoreContext.Provider>
@@ -30,5 +29,5 @@ export const useAppStore = <T,>(selector: (store: AppStore) => T): T => {
     throw new Error(`useAppStore must be use within AppStoreProvider`)
   }
 
-  return useStore(appStoreContext, selector)
+  return useStore(appStoreContext.app, selector)
 }
