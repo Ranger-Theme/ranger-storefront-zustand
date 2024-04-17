@@ -28,4 +28,11 @@ const Home = () => {
   )
 }
 
+Home.getInitialProps = async ({ initialState }: any) => {
+  // const state = initialState
+  console.info(initialState)
+
+  return {}
+}
+
 export default Home
