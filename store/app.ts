@@ -1,20 +1,20 @@
-import { createStore } from "zustand/vanilla";
+import { createStore } from 'zustand/vanilla'
 
 export type AppState = {
-  count: number;
-};
+  count: number
+}
 
 export type AppActions = {
-  increment: () => void;
-  decrement: () => void;
-  reset: () => void;
-};
+  increment: () => void
+  decrement: () => void
+  reset: () => void
+}
 
-export type AppStore = AppState & AppActions;
+export type AppStore = AppState & AppActions
 
 export const defaultInitState: AppState = {
-  count: 0,
-};
+  count: 0
+}
 
 export const createAppStore = (initState: AppState = defaultInitState) => {
   const store = createStore<AppStore>()((set) => {
@@ -22,9 +22,9 @@ export const createAppStore = (initState: AppState = defaultInitState) => {
       ...initState,
       increment: () => set((state) => ({ count: state.count + 1 })),
       decrement: () => set((state) => ({ count: state.count - 1 })),
-      reset: () => set(() => initState),
-    };
-  });
+      reset: () => set(() => initState)
+    }
+  })
 
-  return store;
-};
+  return store
+}

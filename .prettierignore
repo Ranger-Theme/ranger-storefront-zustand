@@ -1,0 +1,5 @@
+*.yaml
+*.md
+dist
+node_modules
+public
