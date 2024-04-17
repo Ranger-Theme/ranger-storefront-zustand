@@ -3,31 +3,41 @@ import { useStore } from 'zustand'
 import type { ReactNode } from 'react'
 
 import { createNextStore } from '@/store'
-import type { NextStore, NextState, AppStore } from '@/store'
+import type { NextStore, NextState, AppStore, CheckoutStore } from '@/store'
 
-const AppStoreContext = createContext<NextStore | null>(null)
+const NextStoreContext = createContext<NextStore | null>(null)
 
-export interface AppStoreProviderProps {
+export interface NextStoreProviderProps {
   children: ReactNode
   state: NextState
 }
 
-export const AppStoreProvider = ({ children, state }: AppStoreProviderProps) => {
+export const NextStoreProvider = ({ children, state }: NextStoreProviderProps) => {
   const storeRef = useRef<NextStore>()
 
   if (!storeRef.current) {
     storeRef.current = createNextStore(state)
   }
 
-  return <AppStoreContext.Provider value={storeRef.current}>{children}</AppStoreContext.Provider>
+  return <NextStoreContext.Provider value={storeRef.current}>{children}</NextStoreContext.Provider>
 }
 
 export const useAppStore = <T,>(selector: (store: AppStore) => T): T => {
-  const appStoreContext = useContext(AppStoreContext)
+  const nextStoreContext = useContext(NextStoreContext)
 
-  if (!appStoreContext) {
+  if (!nextStoreContext) {
     throw new Error(`useAppStore must be use within AppStoreProvider`)
   }
 
-  return useStore(appStoreContext.app, selector)
+  return useStore(nextStoreContext.app, selector)
+}
+
+export const useCheckoutStore = <T,>(selector: (store: CheckoutStore) => T): T => {
+  const nextStoreContext = useContext(NextStoreContext)
+
+  if (!nextStoreContext) {
+    throw new Error(`useAppStore must be use within AppStoreProvider`)
+  }
+
+  return useStore(nextStoreContext.checkout, selector)
 }

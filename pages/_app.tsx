@@ -1,7 +1,7 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 
-import { AppStoreProvider } from '@/providers'
+import { NextStoreProvider } from '@/providers'
 import type { NextState } from '@/store'
 
 interface NextAppProps extends AppProps {
@@ -10,9 +10,9 @@ interface NextAppProps extends AppProps {
 
 const App = ({ Component, pageProps, initialState }: NextAppProps) => {
   return (
-    <AppStoreProvider state={initialState}>
+    <NextStoreProvider state={initialState}>
       <Component {...pageProps} />
-    </AppStoreProvider>
+    </NextStoreProvider>
   )
 }
 
