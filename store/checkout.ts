@@ -12,8 +12,8 @@ export type Address = {
 
 export type CheckoutState = {
   loading: boolean
-  billingAddress: Address | null
-  shippingAddress: Address | null
+  billingAddress?: Address | null
+  shippingAddress?: Address | null
 }
 
 export type CheckoutActions = {

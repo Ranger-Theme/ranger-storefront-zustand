@@ -2,6 +2,7 @@ import { createStore } from 'zustand/vanilla'
 
 export type AppState = {
   count: number
+  storeConfig: any
 }
 
 export type AppActions = {
@@ -13,7 +14,8 @@ export type AppActions = {
 export type AppStore = AppState & AppActions
 
 export const defaultInitState: AppState = {
-  count: 0
+  count: 0,
+  storeConfig: null
 }
 
 export const createAppStore = (initState: AppState = defaultInitState) => {
