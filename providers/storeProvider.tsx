@@ -2,28 +2,25 @@ import { createContext, useRef, useContext } from 'react'
 import { useStore } from 'zustand'
 import type { ReactNode } from 'react'
 
-// import { createStore } from '@/store'
-import type { NextStore, AppStore, CheckoutStore } from '@/store'
+import { initializeStore } from '@/store'
+import type { NextStore, NextState, AppStore, CheckoutStore } from '@/store'
 
 const StoreContext = createContext<NextStore | null>(null)
 
 export interface StoreProviderProps {
   children: ReactNode
-  value: NextStore
+  value: NextState
 }
 
 export const StoreProvider = ({ children, value }: StoreProviderProps) => {
   const storeRef = useRef<NextStore>()
 
   if (!storeRef.current) {
-    // storeRef.current = createStore(value)
-    storeRef.current = value
+    storeRef.current = initializeStore(value)
   }
 
   return <StoreContext.Provider value={storeRef.current}>{children}</StoreContext.Provider>
 }
-
-export const initializeStore = (preloadedState = {}) => {}
 
 export const useAppStore = <T,>(selector: (store: AppStore) => T): T => {
   const store = useContext(StoreContext)

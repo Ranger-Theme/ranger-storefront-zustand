@@ -1,4 +1,4 @@
-import { createStore } from 'zustand/vanilla'
+import { createStore } from 'zustand'
 
 export type AppState = {
   count: number
@@ -27,7 +27,11 @@ export const createAppStore = (initState: AppState = appState) => {
           count: get().count + 1
         })
       },
-      decrement: () => set((state) => ({ count: state.count - 1 })),
+      decrement: () => {
+        set({
+          count: get().count - 1
+        })
+      },
       reset: () => set(() => initState)
     }
   })

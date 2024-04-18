@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-import { initializeStore } from '@/lib/store'
+import { initializeStore } from '@/store'
 
 export const withZustand = (App: any) => {
   return class AppWithRedux extends Component {

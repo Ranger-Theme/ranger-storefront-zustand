@@ -1,49 +1,50 @@
+import type { AppProps, AppContext } from 'next/app'
 import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
 
 import { withZustand } from '@/hoc'
-import { useCreateStore } from '@/lib/store'
 import { StoreProvider } from '@/providers'
-import { nextState } from '@/store'
-import type { NextState, NextStore } from '@/store'
+import type { NextState, NextStore, AppStore } from '@/store'
 
-import Header from '@/components/Header'
-import MiniCart from '@/components/MiniCart'
+import AppShell from '@/components/AppShell'
+
+type NextCtx = AppContext['ctx'] & {
+  zustandStore: NextStore
+}
 
 interface NextAppProps extends AppProps {
   initialState: NextState
 }
 
-interface InitialPage {
-  Component: any
-  ctx: any
+interface NextAppContext extends Omit<AppContext, 'ctx'> {
+  ctx: NextCtx
 }
 
 const App = ({ Component, pageProps, initialState }: NextAppProps) => {
   console.info('initialState:', initialState)
 
   return (
-    <>
-      {/* <StoreProvider value={initialState}> */}
-      {/* <Header />
-      <MiniCart /> */}
-      <Component {...pageProps} />
-      {/* </StoreProvider> */}
-    </>
+    <StoreProvider value={initialState}>
+      <AppShell>
+        <Component {...pageProps} />
+      </AppShell>
+    </StoreProvider>
   )
 }
 
-App.getInitialProps = async ({ Component, ctx }: InitialPage) => {
+App.getInitialProps = async ({ Component, ctx }: NextAppContext) => {
   // Fetch initial data from an API or any other data source
   const { zustandStore } = ctx
-  const state: any = zustandStore.getState()
+  const { app, checkout } = zustandStore
+  const appStore: AppStore = app.getState()
+
+  appStore.increment()
+  appStore.increment()
 
   // Call actions to update state
-  state.increment()
-  state.increment()
-
-  const initialState: any = JSON.parse(JSON.stringify(zustandStore.getState()))
-  console.info(initialState)
+  const initialState: NextState = {
+    app: JSON.parse(JSON.stringify(app.getState())),
+    checkout: JSON.parse(JSON.stringify(checkout.getState()))
+  }
 
   const pageProps = Component.getInitialProps ? await Component.getInitialProps({ ...ctx }) : {}
 
