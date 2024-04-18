@@ -1,20 +1,21 @@
 import { useLayoutEffect } from 'react'
 import { createStore } from 'zustand'
-import createContext from 'zustand/context'
+// import createContext from 'zustand/context'
 
 let store: any
 
-const getDefaultInitialState = () => ({
+export const getDefaultInitialState = () => ({
+  lastUpdate: Date.now(),
   light: false,
   count: 0
 })
 
-const zustandContext = createContext()
+// const zustandContext = createContext()
 
-export const Provider = zustandContext.Provider
-// An example of how to still gets types in JS
-/** @type {import('zustand/index').UseStore<typeof initialState>} */
-export const useStore = zustandContext.useStore
+// export const Provider = zustandContext.Provider
+// // An example of how to still gets types in JS
+// /** @type {import('zustand/index').UseStore<typeof initialState>} */
+// export const useStore = zustandContext.useStore
 
 export const initializeStore = (preloadedState = {}) => {
   return createStore((set, get) => ({

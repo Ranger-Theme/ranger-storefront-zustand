@@ -2,10 +2,10 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 
 import { withZustand } from '@/hoc'
-import { initializeStore, useCreateStore, Provider } from '@/lib/store'
+import { useCreateStore } from '@/lib/store'
 import { StoreProvider } from '@/providers'
 import { nextState } from '@/store'
-import type { NextState } from '@/store'
+import type { NextState, NextStore } from '@/store'
 
 import Header from '@/components/Header'
 import MiniCart from '@/components/MiniCart'
@@ -20,41 +20,31 @@ interface InitialPage {
 }
 
 const App = ({ Component, pageProps, initialState }: NextAppProps) => {
-  // console.info('initialZustandState:', initialState, initialZustandState)
+  console.info('initialState:', initialState)
+
   return (
-    <StoreProvider value={initialState}>
-      <Header />
-      <MiniCart />
+    <>
+      {/* <StoreProvider value={initialState}> */}
+      {/* <Header />
+      <MiniCart /> */}
       <Component {...pageProps} />
-    </StoreProvider>
+      {/* </StoreProvider> */}
+    </>
   )
 }
 
 App.getInitialProps = async ({ Component, ctx }: InitialPage) => {
   // Fetch initial data from an API or any other data source
   const { zustandStore } = ctx
-  // const zustandStore = initializeStore()
   const state: any = zustandStore.getState()
-  console.log(state)
-  // ctx.initialState.count = 10
+
+  // Call actions to update state
+  state.increment()
   state.increment()
 
-  // const initialZustandState = JSON.parse(JSON.stringify(state))
-  // console.log(initialZustandState)
-  const initialState: NextState = {
-    app: {
-      count: 10,
-      storeConfig: {
-        code: 'US'
-      }
-    },
-    checkout: {
-      loading: true
-    }
-  }
-  ctx.initialState = initialState
+  const initialState: any = JSON.parse(JSON.stringify(zustandStore.getState()))
+  console.info(initialState)
 
-  // return { initialState }
   const pageProps = Component.getInitialProps ? await Component.getInitialProps({ ...ctx }) : {}
 
   return { pageProps, initialState }

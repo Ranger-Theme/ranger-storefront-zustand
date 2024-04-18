@@ -19,10 +19,14 @@ export const appState: AppState = {
 }
 
 export const createAppStore = (initState: AppState = appState) => {
-  const store = createStore<AppStore>()((set) => {
+  const store = createStore<AppStore>()((set, get) => {
     return {
       ...initState,
-      increment: () => set((state) => ({ count: state.count + 1 })),
+      increment: () => {
+        set({
+          count: get().count + 1
+        })
+      },
       decrement: () => set((state) => ({ count: state.count - 1 })),
       reset: () => set(() => initState)
     }
