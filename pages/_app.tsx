@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 
 import { withZustand } from '@/hoc'
 import { NextStoreProvider } from '@/providers'
+import { nextState } from '@/store'
 import type { NextState } from '@/store'
 
 import Header from '@/components/Header'
@@ -48,14 +49,4 @@ App.getInitialProps = async ({ Component, ctx }: InitialPage) => {
   return { pageProps }
 }
 
-export default withZustand(App, {
-  app: {
-    count: 10,
-    storeConfig: {
-      code: 'US'
-    }
-  },
-  checkout: {
-    loading: true
-  }
-})
+export default withZustand(App, nextState)

@@ -9,6 +9,7 @@ export const withZustand = (App: any, initialState: any) => {
       appContext.ctx.initialState = initialState
 
       let appProps = {}
+
       if (typeof App.getInitialProps === 'function') {
         appProps = await App.getInitialProps(appContext)
       }

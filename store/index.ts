@@ -1,7 +1,7 @@
 import type { StoreApi } from 'zustand'
 
-import { createAppStore } from './app'
-import { createCheckoutStore } from './checkout'
+import { createAppStore, appState } from './app'
+import { createCheckoutStore, checkoutState } from './checkout'
 import type { AppState, AppActions, AppStore } from './app'
 import type { CheckoutState, CheckoutActions, CheckoutStore } from './checkout'
 
@@ -13,6 +13,11 @@ export type NextState = {
 export type NextStore = {
   app: StoreApi<AppStore>
   checkout: StoreApi<CheckoutStore>
+}
+
+export const nextState: NextState = {
+  app: appState,
+  checkout: checkoutState
 }
 
 export const createNextStore = (initState: NextState): NextStore => {

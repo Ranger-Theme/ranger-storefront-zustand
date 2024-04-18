@@ -25,13 +25,13 @@ export type CheckoutActions = {
 
 export type CheckoutStore = CheckoutState & CheckoutActions
 
-export const defaultInitState: CheckoutState = {
+export const checkoutState: CheckoutState = {
   loading: false,
   billingAddress: null,
   shippingAddress: null
 }
 
-export const createCheckoutStore = (initState: CheckoutState = defaultInitState) => {
+export const createCheckoutStore = (initState: CheckoutState = checkoutState) => {
   const store = createStore<CheckoutStore>()((set) => {
     return {
       ...initState,

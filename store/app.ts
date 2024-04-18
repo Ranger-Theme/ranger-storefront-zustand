@@ -13,12 +13,12 @@ export type AppActions = {
 
 export type AppStore = AppState & AppActions
 
-export const defaultInitState: AppState = {
+export const appState: AppState = {
   count: 0,
   storeConfig: null
 }
 
-export const createAppStore = (initState: AppState = defaultInitState) => {
+export const createAppStore = (initState: AppState = appState) => {
   const store = createStore<AppStore>()((set) => {
     return {
       ...initState,
