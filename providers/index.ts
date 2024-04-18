@@ -1,2 +1,2 @@
-export { useAppStore, useCheckoutStore, NextStoreProvider } from './appProvider'
-export type { NextStoreProviderProps } from './appProvider'
+export { useAppStore, useCheckoutStore, StoreProvider } from './storeProvider'
+export type { StoreProviderProps } from './storeProvider'

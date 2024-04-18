@@ -1,12 +1,19 @@
 import { Component } from 'react'
 
-export const withZustand = (App: any, initialState: any) => {
+import { initializeStore } from '@/lib/store'
+
+export const withZustand = (App: any) => {
   return class AppWithRedux extends Component {
-    public initialState: any
+    // public initialState: any
+    public zustandStore: any
 
     static async getInitialProps(appContext: any) {
       // Provide the store to getInitialProps of pages
-      appContext.ctx.initialState = initialState
+      // const store = initializeStore()
+      // const initialState = JSON.parse(JSON.stringify(store.getState()))
+
+      // appContext.ctx.initialState = initialState
+      appContext.ctx.zustandStore = initializeStore()
 
       let appProps = {}
 
@@ -16,17 +23,20 @@ export const withZustand = (App: any, initialState: any) => {
 
       return {
         ...appProps,
-        initialState
+        zustandStore: initializeStore()
       }
     }
 
     constructor(props: any) {
       super(props)
-      this.initialState = initialState
+      // const store = initializeStore()
+      // const initialState = JSON.parse(JSON.stringify(store.getState()))
+      // this.initialState = initialState
+      this.zustandStore = initializeStore()
     }
 
     render() {
-      return <App initialState={this.initialState} {...this.props} />
+      return <App zustandStore={this.zustandStore} {...this.props} />
     }
   }
 }

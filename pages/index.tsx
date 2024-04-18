@@ -4,7 +4,7 @@ import HomePage from '@/components/HomePage'
 
 const Home = () => {
   const { count, increment, decrement, reset } = useAppStore((state) => state)
-  console.log(count)
+  // console.log(count)
 
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-24`}>
@@ -28,9 +28,10 @@ const Home = () => {
   )
 }
 
-Home.getInitialProps = async ({ initialState }: any) => {
+Home.getInitialProps = async ({ initialState, ...ctx }: any) => {
   // const state = initialState
-  console.info(initialState)
+  // console.info('initialState:', zustandStore().getState())
+  console.info('ctx:', ctx.zustandStore.getState())
 
   return {}
 }

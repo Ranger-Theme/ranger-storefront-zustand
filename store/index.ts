@@ -20,7 +20,7 @@ export const nextState: NextState = {
   checkout: checkoutState
 }
 
-export const createNextStore = (initState: NextState): NextStore => {
+export const createStore = (initState: NextState): NextStore => {
   const { app, checkout } = initState
   const appStore: StoreApi<AppStore> = createAppStore(app)
   const checkoutStore: StoreApi<CheckoutStore> = createCheckoutStore(checkout)
