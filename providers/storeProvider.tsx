@@ -8,7 +8,7 @@ import type { NextStore, NextState, AppStore, CheckoutStore } from '@/store'
 const StoreContext = createContext<NextStore | null>(null)
 
 export interface StoreProviderProps {
-  children: ReactNode
+  children: ReactNode | undefined
   value: NextState
 }
 
