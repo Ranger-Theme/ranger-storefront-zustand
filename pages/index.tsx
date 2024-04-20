@@ -1,13 +1,13 @@
-import { useAppStore } from '@/providers'
+// import { useAppStore } from '@/providers'
 
 import HomePage from '@/components/HomePage'
 
 const Home = () => {
-  const { count, increment, decrement, reset } = useAppStore((state) => state)
+  // const { count, increment, decrement, reset } = useAppStore((state) => state)
 
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-24`}>
-      <div>
+      {/* <div>
         Count: {count}
         <hr />
         <button type="button" onClick={() => increment()}>
@@ -21,14 +21,14 @@ const Home = () => {
         <button type="button" onClick={() => reset()}>
           Reset
         </button>
-      </div>
+      </div> */}
       <HomePage />
     </main>
   )
 }
 
 Home.getInitialProps = async ({ ...ctx }: any) => {
-  console.info('ctx:', ctx.zustandStore.app.getState())
+  // console.info('ctx:', ctx.zustandStore.app.getState())
 
   return {}
 }

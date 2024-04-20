@@ -1,34 +1,58 @@
-import type { StoreApi } from 'zustand'
+import { createStore } from 'zustand'
+import { devtools } from 'zustand/middleware'
+import type { StoreApi, StateCreator, StoreMutatorIdentifier } from 'zustand'
 
-import { createAppStore, appState } from './app'
-import { createCheckoutStore, checkoutState } from './checkout'
+import { logger } from './logger'
+import { createAppSlice, appState } from './app'
+import { createCartSlice, cartState } from './cart'
+import { createCheckoutSlice, checkoutState } from './checkout'
 import type { AppState, AppActions, AppStore } from './app'
+import type { CartState, CartActions, CartStore } from './cart'
 import type { CheckoutState, CheckoutActions, CheckoutStore } from './checkout'
 
-export type NextState = {
-  app: AppState
-  checkout: CheckoutState
-}
+export type NextState = AppState & CartState & CheckoutState
 
-export type NextStore = {
-  app: StoreApi<AppStore>
-  checkout: StoreApi<CheckoutStore>
-}
+export type NextStore = AppStore & CartStore & CheckoutStore
 
 export const nextState: NextState = {
-  app: appState,
-  checkout: checkoutState
+  ...appState,
+  ...cartState,
+  ...checkoutState
 }
 
-export const initializeStore = (initState: Partial<NextState> = {}): NextStore => {
-  const { app, checkout } = initState
-  const appStore: StoreApi<AppStore> = createAppStore(app)
-  const checkoutStore: StoreApi<CheckoutStore> = createCheckoutStore(checkout)
+export type Middlewares = <
+  T,
+  Mps extends [StoreMutatorIdentifier, unknown][] = [],
+  Mcs extends [StoreMutatorIdentifier, unknown][] = []
+>(
+  fn: StateCreator<T, [...Mps, ['zustand/devtools', never]], Mcs>
+) => StateCreator<T, Mps, [['zustand/devtools', never], ...Mcs]>
 
-  return {
-    app: appStore,
-    checkout: checkoutStore
-  }
+export const initializeStore = (initState?: NextState) => {
+  const middlewares: Middlewares = (f) => devtools(logger(f, 'zustand'))
+
+  const store = createStore<NextStore>()(
+    middlewares((...args) => {
+      return {
+        ...initState,
+        ...createAppSlice(...args),
+        ...createCartSlice(...args),
+        ...createCheckoutSlice(...args)
+      }
+    })
+  )
+
+  return store
 }
 
-export type { AppState, AppActions, AppStore, CheckoutState, CheckoutActions, CheckoutStore }
+export type {
+  AppState,
+  AppActions,
+  AppStore,
+  CartState,
+  CartActions,
+  CartStore,
+  CheckoutState,
+  CheckoutActions,
+  CheckoutStore
+}

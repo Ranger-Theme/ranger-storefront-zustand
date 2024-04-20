@@ -1,5 +1,6 @@
-import type { AppProps, AppContext } from 'next/app'
 import '@/styles/globals.css'
+import type { AppProps, AppContext } from 'next/app'
+import type { StoreApi } from 'zustand'
 
 import { withZustand } from '@/hoc'
 import { StoreProvider } from '@/providers'
@@ -8,7 +9,7 @@ import type { NextState, NextStore, AppStore } from '@/store'
 import AppShell from '@/components/AppShell'
 
 type NextCtx = AppContext['ctx'] & {
-  zustandStore: NextStore
+  zustandStore: StoreApi<NextStore>
 }
 
 interface NextAppProps extends AppProps {
@@ -24,9 +25,9 @@ const App = ({ Component, pageProps, initialState }: NextAppProps) => {
 
   return (
     <StoreProvider value={initialState}>
-      <AppShell>
-        <Component {...pageProps} />
-      </AppShell>
+      {/* <AppShell> */}
+      <Component {...pageProps} />
+      {/* </AppShell> */}
     </StoreProvider>
   )
 }
@@ -34,17 +35,13 @@ const App = ({ Component, pageProps, initialState }: NextAppProps) => {
 App.getInitialProps = async ({ Component, ctx }: NextAppContext) => {
   // Fetch initial data from an API or any other data source
   const { zustandStore } = ctx
-  const { app, checkout } = zustandStore
-  const appStore: AppStore = app.getState()
+  const store: NextStore = zustandStore.getState()
 
-  appStore.increment()
-  appStore.increment()
+  store.increment()
+  store.increment()
 
   // Call actions to update state
-  const initialState: NextState = {
-    app: JSON.parse(JSON.stringify(app.getState())),
-    checkout: JSON.parse(JSON.stringify(checkout.getState()))
-  }
+  const initialState: NextState = JSON.parse(JSON.stringify(zustandStore.getState()))
 
   const pageProps = Component.getInitialProps ? await Component.getInitialProps({ ...ctx }) : {}
 
