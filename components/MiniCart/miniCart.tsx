@@ -1,7 +1,7 @@
-import { useCheckoutStore } from '@/providers'
+import { useStore } from '@/providers'
 
 const MiniCart = () => {
-  const { loading } = useCheckoutStore((state) => state)
+  const { loading } = useStore((state) => state.checkout)
   console.info('MiniCart is render...')
 
   return (

@@ -17,7 +17,7 @@ export type CheckoutValues = {
 }
 
 export type CheckoutState = {
-  checkout: Partial<CheckoutValues>
+  checkout: CheckoutValues
 }
 
 export type CheckoutActions = {

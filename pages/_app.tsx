@@ -4,7 +4,7 @@ import type { StoreApi } from 'zustand'
 
 import { withZustand } from '@/hoc'
 import { StoreProvider } from '@/providers'
-import type { NextState, NextStore, AppStore } from '@/store'
+import type { NextState, NextStore } from '@/store'
 
 import AppShell from '@/components/AppShell'
 
@@ -21,13 +21,11 @@ interface NextAppContext extends Omit<AppContext, 'ctx'> {
 }
 
 const App = ({ Component, pageProps, initialState }: NextAppProps) => {
-  console.info('initialState:', initialState)
-
   return (
     <StoreProvider value={initialState}>
-      {/* <AppShell> */}
-      <Component {...pageProps} />
-      {/* </AppShell> */}
+      <AppShell>
+        <Component {...pageProps} />
+      </AppShell>
     </StoreProvider>
   )
 }

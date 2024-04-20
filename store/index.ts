@@ -1,6 +1,6 @@
 import { createStore } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import type { StoreApi, StateCreator, StoreMutatorIdentifier } from 'zustand'
+import type { StateCreator, StoreMutatorIdentifier } from 'zustand'
 
 import { logger } from './logger'
 import { createAppSlice, appState } from './app'
@@ -29,15 +29,16 @@ export type Middlewares = <
 ) => StateCreator<T, Mps, [['zustand/devtools', never], ...Mcs]>
 
 export const initializeStore = (initState?: NextState) => {
-  const middlewares: Middlewares = (f) => devtools(logger(f, 'zustand'))
+  // const middlewares: Middlewares = (f) => devtools(logger(f, 'zustand'))
+  const middlewares: Middlewares = (f) => devtools(f)
 
   const store = createStore<NextStore>()(
     middlewares((...args) => {
       return {
-        ...initState,
         ...createAppSlice(...args),
         ...createCartSlice(...args),
-        ...createCheckoutSlice(...args)
+        ...createCheckoutSlice(...args),
+        ...initState
       }
     })
   )
