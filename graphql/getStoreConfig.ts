@@ -1,26 +1,5 @@
 import { gql } from 'graphql-request'
 
-export interface StoreConfigQuery {
-  storeConfig: {
-    copyright: string
-    category_suffix: string
-    locale: string
-    logo_alt: string
-    logo_height: string
-    logo_width: string
-    cms_home: string
-    shortcut_icon: string
-    product_suffix: string
-    logo_src: string
-    base_url: string
-    base_media_url: string
-  }
-  currency: {
-    code: string
-    symbol: string
-  }
-}
-
 export const GET_STORE_CONFIG = gql`
   query getStoreConfig {
     storeConfig {

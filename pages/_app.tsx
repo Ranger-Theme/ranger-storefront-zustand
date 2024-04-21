@@ -6,7 +6,8 @@ import { request } from 'graphql-request'
 import { withZustand } from '@/hoc'
 import { ApiProvider, StoreProvider } from '@/providers'
 import { queryClient } from '@/providers/client'
-import { type StoreConfigQuery, GET_STORE_CONFIG } from '@/graphql/getStoreConfig'
+import { GET_STORE_CONFIG } from '@/graphql/getStoreConfig'
+import type { StoreConfigQuery } from '@/interfaces'
 import type { NextState, NextStore } from '@/store'
 
 import AppShell from '@/components/AppShell'
@@ -23,14 +24,7 @@ interface NextAppContext extends Omit<AppContext, 'ctx'> {
   ctx: NextCtx
 }
 
-const useStoreQuery = async () =>
-  // await request<StoreConfigQuery, { id: string }>(
-  //   process.env.NEXT_PUBLIC_GRAPHQL_URL,
-  //   GET_STORE_CONFIG,
-  //   {
-  //     id: '2'
-  //   }
-  // )
+const fetchStoreQuery = async () =>
   await request<StoreConfigQuery>(process.env.NEXT_PUBLIC_GRAPHQL_URL, GET_STORE_CONFIG)
 
 const App = ({ Component, pageProps, initialState }: NextAppProps) => {
@@ -52,7 +46,7 @@ App.getInitialProps = async ({ Component, ctx }: NextAppContext) => {
 
   const result = await queryClient.fetchQuery({
     queryKey: ['storeConfig'],
-    queryFn: useStoreQuery
+    queryFn: fetchStoreQuery
   })
   store.setAppConfig(result)
 

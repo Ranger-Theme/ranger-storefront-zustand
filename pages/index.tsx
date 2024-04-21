@@ -1,37 +1,43 @@
-import { useStore } from '@/providers'
+import { request } from 'graphql-request'
+
+import { queryClient } from '@/providers/client'
+import { GET_CMS_PAGE } from '@/graphql/getCmsPage'
+import type { CmsPageQuery } from '@/interfaces'
+import type { NextStore } from '@/store'
 
 import HomePage from '@/components/HomePage'
 
-const Home = () => {
-  const { app, increment, decrement, resetApp } = useStore((state) => state)
-  const { count } = app
+const fetchCmsPageQuery = async (identifier: string) =>
+  await request<
+    CmsPageQuery,
+    {
+      identifier: string
+    }
+  >(process.env.NEXT_PUBLIC_GRAPHQL_URL, GET_CMS_PAGE, {
+    identifier
+  })
 
+const Home = ({ cmsPage }: CmsPageQuery) => {
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-24`}>
-      <div>
-        Count: {count}
-        <hr />
-        <button type="button" onClick={() => increment()}>
-          Increment
-        </button>
-        <br />
-        <button type="button" onClick={() => decrement()}>
-          Decrement
-        </button>
-        <br />
-        <button type="button" onClick={() => resetApp()}>
-          Reset
-        </button>
-      </div>
-      <HomePage />
+      <HomePage {...cmsPage} />
     </main>
   )
 }
 
 Home.getInitialProps = async ({ ...ctx }: any) => {
-  console.info('ctx:', ctx.zustandStore.getState().app)
+  const store: NextStore = ctx.zustandStore.getState()
+  const storeConfig = store.app.storeConfig
+  const identifier: string = storeConfig?.cms_home ?? ''
 
-  return {}
+  const result = await queryClient.fetchQuery({
+    queryKey: ['cmsPage'],
+    queryFn: () => fetchCmsPageQuery(identifier)
+  })
+
+  return {
+    cmsPage: result?.cmsPage ?? {}
+  }
 }
 
 export default Home
