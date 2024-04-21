@@ -2,6 +2,7 @@ import type { StateCreator } from 'zustand'
 
 export type AppValues = {
   count: number
+  currency: any
   storeConfig: any
 }
 
@@ -12,6 +13,7 @@ export type AppState = {
 export type AppActions = {
   increment: () => void
   decrement: () => void
+  setAppConfig: (config: any) => void
   resetApp: () => void
 }
 
@@ -20,6 +22,7 @@ export type AppStore = AppState & AppActions
 export const appState: AppState = {
   app: {
     count: 0,
+    currency: null,
     storeConfig: null
   }
 }
@@ -57,6 +60,20 @@ export const createAppSlice: StateCreator<AppStore, [['zustand/devtools', never]
         },
         false,
         'app/decrement'
+      ),
+    setAppConfig: (config) =>
+      set(
+        (state) => {
+          return {
+            ...state,
+            app: {
+              ...state.app,
+              ...config
+            }
+          }
+        },
+        false,
+        'app/setAppConfig'
       ),
     resetApp: () =>
       set(

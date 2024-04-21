@@ -29,8 +29,7 @@ export type Middlewares = <
 ) => StateCreator<T, Mps, [['zustand/devtools', never], ...Mcs]>
 
 export const initializeStore = (initState?: NextState) => {
-  // const middlewares: Middlewares = (f) => devtools(logger(f, 'zustand'))
-  const middlewares: Middlewares = (f) => devtools(f)
+  const middlewares: Middlewares = (f) => devtools(logger(f, 'zustand'))
 
   const store = createStore<NextStore>()(
     middlewares((...args) => {

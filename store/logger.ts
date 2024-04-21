@@ -15,7 +15,16 @@ const loggerImpl: LoggerImpl = (fn, name) => (set, get, store) => {
   const loggedSet: typeof set = (...args) => {
     console.log(...(name ? [`${name}: applying`] : []), args)
     set(...args)
-    console.log(...(name ? [`${name}: new state`] : []), store.getState())
+
+    const state: any = store.getState()
+    const newState: any = {}
+    Object.keys(state).forEach((key: string) => {
+      if (typeof state[key] !== 'function') {
+        newState[key] = state[key]
+      }
+    })
+
+    console.log(...(name ? [`${name}: new state`] : []), newState)
   }
   const setState = store.setState
   store.setState = (...args) => {

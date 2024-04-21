@@ -29,7 +29,7 @@ const Home = () => {
 }
 
 Home.getInitialProps = async ({ ...ctx }: any) => {
-  // console.info('ctx:', ctx.zustandStore.getState().app)
+  console.info('ctx:', ctx.zustandStore.getState().app)
 
   return {}
 }
