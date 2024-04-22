@@ -2,6 +2,7 @@ import type { PropsWithChildren } from 'react'
 
 import Header from '@/components/Header'
 import MiniCart from '@/components/MiniCart'
+import Footer from '@/components/Footer'
 
 const AppShell = ({ children }: PropsWithChildren) => {
   return (
@@ -9,6 +10,7 @@ const AppShell = ({ children }: PropsWithChildren) => {
       <Header />
       <MiniCart />
       {children}
+      <Footer />
     </>
   )
 }
