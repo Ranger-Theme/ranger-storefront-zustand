@@ -1,21 +1,22 @@
-import { request } from 'graphql-request'
-
 import { queryClient } from '@/providers/client'
 import { GET_CMS_PAGE } from '@/graphql/getCmsPage'
+import { createClient } from '@/api'
 import type { CmsPageQuery } from '@/interfaces'
 import type { NextStore } from '@/store'
 
 import HomePage from '@/components/HomePage'
 
-const fetchCmsPageQuery = async (identifier: string) =>
-  await request<
+const fetchCmsPageQuery = async (identifier: string) => {
+  const client = createClient()
+  return await client.request<
     CmsPageQuery,
     {
       identifier: string
     }
-  >(process.env.NEXT_PUBLIC_GRAPHQL_URL, GET_CMS_PAGE, {
+  >(GET_CMS_PAGE, {
     identifier
   })
+}
 
 const Home = ({ cmsPage }: CmsPageQuery) => {
   return (

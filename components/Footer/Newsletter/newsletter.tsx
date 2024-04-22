@@ -1,5 +1,6 @@
 import { useMutation, useIsMutating } from '@tanstack/react-query'
 import { request } from 'graphql-request'
+import { Button } from '@mui/material'
 
 import { POST_NEWSLETTER } from '@/graphql/postNewsletter'
 
@@ -34,7 +35,9 @@ const Newsletter = () => {
   return (
     <div>
       <p>Newsletter</p>
-      <button onClick={handleSubscribe}>Subscribe</button>
+      <Button color="primary" onClick={handleSubscribe}>
+        Subscribe
+      </Button>
     </div>
   )
 }

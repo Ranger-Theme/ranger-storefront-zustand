@@ -1,12 +1,17 @@
-import '@/styles/globals.css'
+import Head from 'next/head'
+import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter'
+import { ThemeProvider } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
 import type { AppProps, AppContext } from 'next/app'
 import type { StoreApi } from 'zustand'
-import { request } from 'graphql-request'
+import '@/styles/globals.css'
 
+import { theme } from '@/config'
 import { withZustand } from '@/hoc'
 import { ApiProvider, StoreProvider } from '@/providers'
 import { queryClient } from '@/providers/client'
 import { GET_STORE_CONFIG } from '@/graphql/getStoreConfig'
+import { createClient } from '@/api'
 import type { StoreConfigQuery } from '@/interfaces'
 import type { NextState, NextStore } from '@/store'
 
@@ -24,18 +29,30 @@ interface NextAppContext extends Omit<AppContext, 'ctx'> {
   ctx: NextCtx
 }
 
-const fetchStoreQuery = async () =>
-  await request<StoreConfigQuery>(process.env.NEXT_PUBLIC_GRAPHQL_URL, GET_STORE_CONFIG)
+const fetchStoreQuery = async () => {
+  const client = createClient()
+  return await client.request<StoreConfigQuery>(GET_STORE_CONFIG)
+}
 
-const App = ({ Component, pageProps, initialState }: NextAppProps) => {
+const App = ({ Component, pageProps, initialState, ...props }: NextAppProps) => {
   return (
-    <ApiProvider>
-      <StoreProvider value={initialState}>
-        <AppShell>
-          <Component {...pageProps} />
-        </AppShell>
-      </StoreProvider>
-    </ApiProvider>
+    <>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <ApiProvider>
+        <StoreProvider value={initialState}>
+          <AppCacheProvider {...props}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <AppShell>
+                <Component {...pageProps} />
+              </AppShell>
+            </ThemeProvider>
+          </AppCacheProvider>
+        </StoreProvider>
+      </ApiProvider>
+    </>
   )
 }
 
