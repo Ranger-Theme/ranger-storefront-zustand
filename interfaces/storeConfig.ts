@@ -4,6 +4,7 @@ export interface Currency {
 }
 
 export interface StoreConfig {
+  code: string
   copyright: string
   category_suffix: string
   locale: string

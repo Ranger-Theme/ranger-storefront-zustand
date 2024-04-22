@@ -3,6 +3,7 @@ import { gql } from 'graphql-request'
 export const GET_STORE_CONFIG = gql`
   query getStoreConfig {
     storeConfig {
+      code
       copyright
       category_suffix: category_url_suffix
       locale

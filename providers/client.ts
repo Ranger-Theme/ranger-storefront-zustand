@@ -10,7 +10,7 @@ export const queryClient = new QueryClient({
       throwOnError(error) {
         const graphqlError = error as any
         error.message = graphqlError?.response?.errors?.[0]?.message ?? ''
-
+        console.log(error)
         return true
       }
     },

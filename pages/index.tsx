@@ -31,7 +31,7 @@ Home.getInitialProps = async ({ ...ctx }: any) => {
   const identifier: string = storeConfig?.cms_home ?? ''
 
   const result = await queryClient.fetchQuery({
-    queryKey: ['cmsPage'],
+    queryKey: ['cmsPage', identifier],
     queryFn: () => fetchCmsPageQuery(identifier)
   })
 

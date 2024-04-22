@@ -1,32 +1,34 @@
 import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { request } from 'graphql-request'
 
+import { createClient } from '@/api'
 import { GET_CMS_BLOCK } from '@/graphql/getCmsBlock'
 import type { CmsBlocksQuery } from '@/interfaces'
 
 const useCmsBlock = async (identifiers: string[]) => {
   try {
-    await request<
+    const client = createClient()
+
+    await client.request<
       CmsBlocksQuery,
       {
         identifiers: string[]
       }
-    >('http://127.0.0.1:3000/api/graphql', GET_CMS_BLOCK, {
+    >(GET_CMS_BLOCK, {
       identifiers
     })
   } catch (error) {
     console.info(error)
+    return {}
   }
 }
 
 const CmsBlock = () => {
   const cmsBlockQuery = useQuery({
     queryKey: ['cmsBlock'],
-    queryFn: () => useCmsBlock(['test-block']),
-    enabled: false
+    enabled: false,
+    queryFn: () => useCmsBlock(['test-block'])
   })
-  console.info(cmsBlockQuery.isLoading)
 
   useEffect(() => {
     cmsBlockQuery.refetch()
