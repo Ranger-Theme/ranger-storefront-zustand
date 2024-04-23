@@ -30,8 +30,8 @@ interface NextAppContext extends Omit<AppContext, 'ctx'> {
   ctx: NextCtx
 }
 
-const fetchStoreQuery = async () => {
-  const client = createClient()
+const fetchStoreQuery = async (locale: string) => {
+  const client = createClient(locale)
   return await client.request<StoreConfigQuery>(GET_STORE_CONFIG)
 }
 
@@ -80,14 +80,15 @@ const App = ({ Component, pageProps, initialState, ...props }: NextAppProps) => 
   )
 }
 
-App.getInitialProps = async ({ Component, ctx }: NextAppContext) => {
+App.getInitialProps = async ({ Component, ctx, router }: NextAppContext) => {
   // Fetch initial data from an API or any other data source
   const { zustandStore } = ctx
   const store: NextStore = zustandStore.getState()
+  const locale: string = router.locale === router.defaultLocale ? '' : `${router.locale}/`
 
   const result = await queryClient.fetchQuery({
     queryKey: ['storeConfig'],
-    queryFn: fetchStoreQuery
+    queryFn: () => fetchStoreQuery(locale)
   })
   store.setAppConfig(result)
 

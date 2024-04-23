@@ -1,3 +1,6 @@
+import type { NextPageContext } from 'next/types'
+import type { StoreApi } from 'zustand'
+
 import { queryClient } from '@/providers/client'
 import { GET_CMS_PAGE } from '@/graphql/getCmsPage'
 import { createClient } from '@/api'
@@ -6,8 +9,12 @@ import type { NextStore } from '@/store'
 
 import HomePage from '@/components/HomePage'
 
-const fetchCmsPageQuery = async (identifier: string) => {
-  const client = createClient()
+type PageContext = NextPageContext & {
+  zustandStore: StoreApi<NextStore>
+}
+
+const fetchCmsPageQuery = async (identifier: string, locale: string) => {
+  const client = createClient(locale)
   return await client.request<
     CmsPageQuery,
     {
@@ -26,14 +33,15 @@ const Home = ({ cmsPage }: CmsPageQuery) => {
   )
 }
 
-Home.getInitialProps = async ({ ...ctx }: any) => {
-  const store: NextStore = ctx.zustandStore.getState()
+Home.getInitialProps = async ({ zustandStore, locale, defaultLocale }: PageContext) => {
+  const store: NextStore = zustandStore.getState()
   const storeConfig = store.app.storeConfig
   const identifier: string = storeConfig?.cms_home ?? ''
+  const i18n: string = locale === defaultLocale ? '' : `${locale}/`
 
   const result = await queryClient.fetchQuery({
     queryKey: ['cmsPage', identifier],
-    queryFn: () => fetchCmsPageQuery(identifier)
+    queryFn: () => fetchCmsPageQuery(identifier, i18n)
   })
 
   return {

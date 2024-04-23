@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
@@ -5,8 +6,8 @@ import { createClient } from '@/api'
 import { GET_CMS_BLOCK } from '@/graphql/getCmsBlock'
 import type { CmsBlocksQuery } from '@/interfaces'
 
-const useCmsBlock = async (identifiers: string[]) => {
-  const client = createClient()
+const useCmsBlock = async (identifiers: string[], locale: string) => {
+  const client = createClient(locale)
   await client.request<
     CmsBlocksQuery,
     {
@@ -18,12 +19,14 @@ const useCmsBlock = async (identifiers: string[]) => {
 }
 
 const CmsBlock = () => {
+  const router = useRouter()
   const identifier: string[] = ['test-block']
+  const locale: string = router.locale === router.defaultLocale ? '' : `${router.locale}/`
 
   const cmsBlockQuery = useQuery({
     queryKey: ['cmsBlock', identifier],
     enabled: false,
-    queryFn: () => useCmsBlock(identifier)
+    queryFn: () => useCmsBlock(identifier, locale)
   })
 
   useEffect(() => {
