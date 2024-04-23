@@ -1,4 +1,4 @@
-import { QueryClient } from '@tanstack/react-query'
+import { QueryClient, QueryCache, MutationCache } from '@tanstack/react-query'
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -6,19 +6,29 @@ export const queryClient = new QueryClient({
       retry: false,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
-      throwOnError(error) {
-        const graphqlError = error as any
-        error.message = graphqlError?.response?.errors?.[0]?.message ?? ''
-        console.log(error)
-        return true
-      }
+      refetchOnReconnect: false
     },
     mutations: {
-      onError(error) {
-        const graphqlError = error as any
-        error.message = graphqlError?.response?.errors?.[0]?.message ?? ''
-      }
+      retry: false
     }
-  }
+  },
+  queryCache: new QueryCache({
+    onError: (error) => {
+      const graphqlError = error as any
+      error.message = graphqlError?.response?.errors?.[0]?.message ?? ''
+    }
+  }),
+  mutationCache: new MutationCache({
+    onError(error) {
+      const graphqlError = error as any
+      const isClient: boolean = typeof window !== 'undefined'
+      const message: string = graphqlError?.response?.errors?.[0]?.message ?? ''
+
+      error.message = message
+      if (isClient)
+        window.snackbar.open(message, {
+          variant: 'default'
+        })
+    }
+  })
 })

@@ -5,8 +5,6 @@ import type { FC } from 'react'
 import type { CmsPage } from '@/interfaces'
 
 const HomePage: FC<CmsPage> = ({ ...props }) => {
-  console.info('Homepage is render...')
-
   return (
     <>
       <Head>

@@ -6,28 +6,24 @@ import { GET_CMS_BLOCK } from '@/graphql/getCmsBlock'
 import type { CmsBlocksQuery } from '@/interfaces'
 
 const useCmsBlock = async (identifiers: string[]) => {
-  try {
-    const client = createClient()
-
-    await client.request<
-      CmsBlocksQuery,
-      {
-        identifiers: string[]
-      }
-    >(GET_CMS_BLOCK, {
-      identifiers
-    })
-  } catch (error) {
-    console.info(error)
-    return {}
-  }
+  const client = createClient()
+  await client.request<
+    CmsBlocksQuery,
+    {
+      identifiers: string[]
+    }
+  >(GET_CMS_BLOCK, {
+    identifiers
+  })
 }
 
 const CmsBlock = () => {
+  const identifier: string[] = ['test-block']
+
   const cmsBlockQuery = useQuery({
-    queryKey: ['cmsBlock'],
+    queryKey: ['cmsBlock', identifier],
     enabled: false,
-    queryFn: () => useCmsBlock(['test-block'])
+    queryFn: () => useCmsBlock(identifier)
   })
 
   useEffect(() => {

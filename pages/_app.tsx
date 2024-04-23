@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter'
 import { ThemeProvider } from '@mui/material'
+import { SnackbarProvider } from 'notistack'
 import CssBaseline from '@mui/material/CssBaseline'
 import type { AppProps, AppContext } from 'next/app'
 import type { StoreApi } from 'zustand'
@@ -38,17 +39,40 @@ const App = ({ Component, pageProps, initialState, ...props }: NextAppProps) => 
   return (
     <>
       <Head>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="robots" content="INDEX,FOLLOW" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+        />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-title" content="Ranger" />
+        <meta name="format-detection" content="telephone=no, email=no" />
+        <meta name="application-name" content="Ranger" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Ranger" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="msapplication-TileColor" content="#2B5797" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="theme-color" content="#000000" />
       </Head>
       <ApiProvider>
         <StoreProvider value={initialState}>
           <AppCacheProvider {...props}>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <AppShell>
-                <Component {...pageProps} />
-              </AppShell>
-            </ThemeProvider>
+            <SnackbarProvider
+              maxSnack={3}
+              autoHideDuration={5000}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+              <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <AppShell>
+                  <Component {...pageProps} />
+                </AppShell>
+              </ThemeProvider>
+            </SnackbarProvider>
           </AppCacheProvider>
         </StoreProvider>
       </ApiProvider>
