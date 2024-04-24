@@ -6,9 +6,11 @@ import { logger } from './logger'
 import { createAppSlice, appState } from './app'
 import { createCartSlice, cartState } from './cart'
 import { createCheckoutSlice, checkoutState } from './checkout'
+import { createI18nSlice, i18nState } from './i18n'
 import type { AppState, AppActions, AppStore } from './app'
 import type { CartState, CartActions, CartStore } from './cart'
 import type { CheckoutState, CheckoutActions, CheckoutStore } from './checkout'
+import type { I18nState, I18nActions, I18nStore } from './i18n'
 
 declare global {
   interface Window {
@@ -16,14 +18,15 @@ declare global {
   }
 }
 
-export type NextState = AppState & CartState & CheckoutState
+export type NextState = AppState & CartState & CheckoutState & I18nState
 
-export type NextStore = AppStore & CartStore & CheckoutStore
+export type NextStore = AppStore & CartStore & CheckoutStore & I18nStore
 
 export const nextState: NextState = {
   ...appState,
   ...cartState,
-  ...checkoutState
+  ...checkoutState,
+  ...i18nState
 }
 
 export type Middlewares = <
@@ -43,6 +46,7 @@ export const createInitStore = (initState?: NextState) => {
         ...createAppSlice(...args),
         ...createCartSlice(...args),
         ...createCheckoutSlice(...args),
+        ...createI18nSlice(...args),
         ...initState
       }
     })
@@ -74,5 +78,8 @@ export type {
   CartStore,
   CheckoutState,
   CheckoutActions,
-  CheckoutStore
+  CheckoutStore,
+  I18nState,
+  I18nActions,
+  I18nStore
 }

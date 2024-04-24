@@ -1,12 +1,13 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { NextIntlClientProvider } from 'next-intl'
+import { NextIntlClientProvider, IntlErrorCode } from 'next-intl'
 import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter'
 import { ThemeProvider } from '@mui/material'
 import { SnackbarProvider } from 'notistack'
 import CssBaseline from '@mui/material/CssBaseline'
 import type { AppProps, AppContext } from 'next/app'
 import type { StoreApi } from 'zustand'
+import type { IntlError } from 'next-intl'
 import '@/styles/globals.css'
 
 import { theme } from '@/config'
@@ -26,7 +27,6 @@ type NextCtx = AppContext['ctx'] & {
 }
 
 interface NextAppProps extends AppProps {
-  messages: Record<string, any>
   initialState: NextState
 }
 
@@ -39,8 +39,16 @@ const fetchStoreQuery = async (locale: string) => {
   return await client.request<StoreConfigQuery>(GET_STORE_CONFIG)
 }
 
-const App = ({ Component, pageProps, initialState, messages, ...props }: NextAppProps) => {
+const App = ({ Component, pageProps, initialState, ...props }: NextAppProps) => {
   const router = useRouter()
+
+  const onError = (error: IntlError) => {
+    if (error.code === IntlErrorCode.MISSING_MESSAGE) {
+      console.error(error)
+    } else {
+      console.log(error)
+    }
+  }
 
   return (
     <>
@@ -63,7 +71,11 @@ const App = ({ Component, pageProps, initialState, messages, ...props }: NextApp
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-tap-highlight" content="no" />
       </Head>
-      <NextIntlClientProvider locale={router.locale} messages={messages} timeZone="Europe/Vienna">
+      <NextIntlClientProvider
+        locale={router.locale}
+        messages={initialState.i18n.messages}
+        timeZone="Europe/Vienna"
+        onError={onError}>
         <ApiProvider>
           <StoreProvider value={initialState}>
             <AppCacheProvider {...props}>
@@ -99,15 +111,18 @@ App.getInitialProps = async ({ Component, ctx, router }: NextAppContext) => {
       queryKey: ['storeConfig'],
       queryFn: () => fetchStoreQuery(locale)
     })
+
+    const messages = (await import(`../i18n/${ctx.locale}.json`)).default
+
     store.setAppConfig(result)
+    store.setI18n({ locale: ctx.locale, messages })
   }
 
   // Call actions to update state
   const initialState: NextState = JSON.parse(JSON.stringify(zustandStore.getState()))
   const pageProps = Component.getInitialProps ? await Component.getInitialProps({ ...ctx }) : {}
-  const messages = (await import(`../i18n/${ctx.locale}.json`)).default
 
-  return { pageProps, messages, initialState }
+  return { pageProps, initialState }
 }
 
 export default withZustand(App)

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 const NextPerformance = () => {
-  const [byte, setByte] = useState<string>('128kB')
+  const [byte, setByte] = useState<string>('1kb')
 
   useEffect(() => {
     const nextElement: HTMLElement | null = document.getElementById('__NEXT_DATA__')

@@ -1,13 +1,13 @@
 import type { StateCreator } from 'zustand'
 
-export type CheckoutValues = {
+export type CartValues = {
   cartId: string
   cartDetail: any
   loading: boolean
 }
 
 export type CartState = {
-  cart: Partial<CheckoutValues>
+  cart: Partial<CartValues>
 }
 
 export type CartActions = {
