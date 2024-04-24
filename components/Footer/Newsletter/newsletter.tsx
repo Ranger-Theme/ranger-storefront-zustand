@@ -38,7 +38,6 @@ const Newsletter = () => {
 
   return (
     <div>
-      <p>Newsletter</p>
       <Button color="primary" onClick={handleSubscribe}>
         Subscribe
       </Button>

@@ -7,5 +7,8 @@
     "qty": "Quantité: {qty, plural, =1 {projet} other {# projets}}",
     "message": "See this <partner>partner website</partner>.",
     "partnerHref": "/cart"
+  },
+  "Orders": {
+    "ordered": "Temps de commande {orderDate, date, short}"
   }
 }

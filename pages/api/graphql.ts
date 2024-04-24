@@ -10,8 +10,8 @@ const apiProxy: any = createProxyMiddleware({
   },
   proxyTimeout: TIMEOUT,
   timeout: TIMEOUT,
-  router: async (req: any) => {
-    return process.env.NEXT_PUBLIC_GRAPHQL_URL
+  router: () => {
+    return process.env.NEXT_PUBLIC_API_URL
   }
 })
 
