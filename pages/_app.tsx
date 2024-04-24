@@ -4,7 +4,6 @@ import { NextIntlClientProvider } from 'next-intl'
 import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter'
 import { ThemeProvider } from '@mui/material'
 import { SnackbarProvider } from 'notistack'
-import { isEmpty } from 'lodash-es'
 import CssBaseline from '@mui/material/CssBaseline'
 import type { AppProps, AppContext } from 'next/app'
 import type { StoreApi } from 'zustand'
@@ -95,22 +94,20 @@ App.getInitialProps = async ({ Component, ctx, router }: NextAppContext) => {
   const locale: string = router.locale === router.defaultLocale ? '' : `${router.locale}/`
   const isClient: boolean = (!req || (req.url && req.url.startsWith('/_next/data'))) as boolean
 
-  const result = await queryClient.fetchQuery({
-    queryKey: ['storeConfig'],
-    queryFn: () => fetchStoreQuery(locale)
-  })
-  store.setAppConfig(result)
+  if (!isClient) {
+    const result = await queryClient.fetchQuery({
+      queryKey: ['storeConfig'],
+      queryFn: () => fetchStoreQuery(locale)
+    })
+    store.setAppConfig(result)
+  }
 
   // Call actions to update state
   const initialState: NextState = JSON.parse(JSON.stringify(zustandStore.getState()))
   const pageProps = Component.getInitialProps ? await Component.getInitialProps({ ...ctx }) : {}
+  const messages = (await import(`../i18n/${ctx.locale}.json`)).default
 
-  try {
-    const messages = (await import(`../i18n/${ctx.locale}.json`)).default
-    return { pageProps, messages, initialState }
-  } catch (error) {
-    return { pageProps, messages: {}, initialState }
-  }
+  return { pageProps, messages, initialState }
 }
 
 export default withZustand(App)
