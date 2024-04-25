@@ -1,0 +1,16 @@
+{
+  "name": "@ranger-theme/react-hook-form",
+  "version": "0.1.0",
+  "sideEffects": false,
+  "dependencies": {
+    "react-hook-form": "^7.51.0"
+  },
+  "devDependencies": {
+    "@ranger-theme/typescript-config": "workspace:^",
+    "tsup": "^5.10.1"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "typescript": "^5.4.5"
+  }
+}

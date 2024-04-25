@@ -9,6 +9,7 @@ import type { AppProps, AppContext } from 'next/app'
 import type { StoreApi } from 'zustand'
 import type { IntlError } from 'next-intl'
 import '@/styles/globals.css'
+import defaultMesage from '../i18n/en.json'
 
 import { theme } from '@/config'
 import { withZustand } from '@/hoc'
@@ -73,7 +74,7 @@ const App = ({ Component, pageProps, initialState, ...props }: NextAppProps) => 
       </Head>
       <NextIntlClientProvider
         locale={router.locale}
-        messages={initialState.i18n.messages}
+        messages={initialState.i18n.messages || defaultMesage}
         timeZone="Europe/Vienna"
         onError={onError}>
         <ApiProvider>

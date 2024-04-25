@@ -1,9 +1,0 @@
-{
-  "name": "@ranger-theme/react-hook-form",
-  "version": "0.1.0",
-  "sideEffects": false,
-  "devDependencies": {},
-  "peerDependencies": {
-    "react-dom": "^18.2.0"
-  }
-}
