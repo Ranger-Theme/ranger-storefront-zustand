@@ -1,3 +1,6 @@
+export { CheckboxElement } from './src/components/CheckboxElement'
+export type { CheckboxElementProps } from './src/components/CheckboxElement'
+
 export { TextFieldElement } from './src/components/TextFieldElement'
 export type { TextFieldElementProps } from './src/components/TextFieldElement'
 

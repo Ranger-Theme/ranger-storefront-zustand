@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "sideEffects": false,
   "dependencies": {
-    "react-hook-form": "^7.51.0"
+    "react-hook-form": "^7.51.3"
   },
   "devDependencies": {
     "@ranger-theme/typescript-config": "workspace:^",
