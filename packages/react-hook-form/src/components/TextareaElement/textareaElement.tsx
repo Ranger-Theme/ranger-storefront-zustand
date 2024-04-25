@@ -1,16 +1,19 @@
-import { TextareaAutosize, TextField, TextFieldProps, useForkRef } from '@mui/material'
-import {
+import { forwardRef } from 'react'
+import { useController } from 'react-hook-form'
+import { TextareaAutosize, TextField, useForkRef } from '@mui/material'
+import type { CSSProperties, ReactNode, Ref, RefAttributes } from 'react'
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
-  useController,
   UseControllerProps
 } from 'react-hook-form'
-import { CSSProperties, forwardRef, ReactNode, Ref, RefAttributes } from 'react'
-import { useFormError } from './FormErrorProvider'
+import type { TextFieldProps } from '@mui/material'
 
-export type TextareaAutosizeElementProps<
+import { useFormError } from '../FormErrorProvider'
+
+export type TextareaElementProps<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 > = Omit<TextFieldProps, 'name' | 'type'> & {
@@ -21,17 +24,17 @@ export type TextareaAutosizeElementProps<
   resizeStyle?: CSSProperties['resize']
 }
 
-type TextareaAutosizeElementComponent = <
+type TextareaElementComponent = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >(
-  props: TextareaAutosizeElementProps<TFieldValues, TName> & RefAttributes<HTMLDivElement>
+  props: TextareaElementProps<TFieldValues, TName> & RefAttributes<HTMLDivElement>
 ) => JSX.Element
 
-const TextareaAutosizeElement = forwardRef(function TextareaAutosizeElement<
+const TextareaElement = forwardRef(function TextareaElement<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
->(props: TextareaAutosizeElementProps<TFieldValues, TName>, ref: Ref<HTMLDivElement>): JSX.Element {
+>(props: TextareaElementProps<TFieldValues, TName>, ref: Ref<HTMLDivElement>): JSX.Element {
   const {
     validation = {},
     parseError,
@@ -103,6 +106,6 @@ const TextareaAutosizeElement = forwardRef(function TextareaAutosizeElement<
   )
 })
 
-TextareaAutosizeElement.displayName = 'TextareaAutosizeElement'
+TextareaElement.displayName = 'TextareaElement'
 
-export default TextareaAutosizeElement as TextareaAutosizeElementComponent
+export default TextareaElement as TextareaElementComponent

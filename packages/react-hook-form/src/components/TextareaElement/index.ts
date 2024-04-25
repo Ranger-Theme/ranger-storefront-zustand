@@ -1,3 +1,2 @@
-/*
- * @Copyright: @ Silk Software Corp. All Rights Reserved
- */
+export { default as TextareaElement } from './textareaElement'
+export type { TextareaElementProps } from './textareaElement'
