@@ -16,6 +16,9 @@ export type { DateTimePickerElementProps } from './src/components/DateTimePicker
 export { default as FormElement } from './src/components/FormElement'
 export type { FormElementProps } from './src/components/FormElement'
 
+export { default as MobileDatePickerElement } from './src/components/mobileDatePickerElement'
+export type { MobileDatePickerElementProps } from './src/components/mobileDatePickerElement'
+
 export { default as FormErrorProvider } from './src/providers/FormErrorProvider'
 export { useFormError } from './src/providers/FormErrorProvider'
 export type { FormErrorProviderProps } from './src/providers/FormErrorProvider'

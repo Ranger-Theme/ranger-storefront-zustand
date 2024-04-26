@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import { useController } from 'react-hook-form'
 import { useForkRef } from '@mui/material'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker'
 import { useLocalizationContext, validateDate } from '@mui/x-date-pickers/internals'
 import type { ReactNode, Ref, RefAttributes } from 'react'
 import type {
@@ -14,43 +14,41 @@ import type {
 } from 'react-hook-form'
 import type { TextFieldProps } from '@mui/material'
 import type {
-  DatePickerProps,
-  DatePickerSlotsComponentsProps
-} from '@mui/x-date-pickers/DatePicker'
-import type { DateValidationError } from '@mui/x-date-pickers'
+  MobileDatePickerProps,
+  MobileDatePickerSlotsComponentsProps
+} from '@mui/x-date-pickers/MobileDatePicker'
 
 import { useFormError } from '../../providers/FormErrorProvider'
 import { defaultErrorMessages } from '../../messages/datePicker'
 
-export type DatePickerElementProps<
+export type MobileDatePickerElementProps<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   TDate = PathValue<TFieldValues, TName>
-> = Omit<DatePickerProps<TDate>, 'value' | 'slotProps'> & {
+> = Omit<MobileDatePickerProps<TDate>, 'value' | 'slotProps'> & {
   name: TName
   required?: boolean
   isDate?: boolean
-  parseError?: (error: FieldError | DateValidationError) => ReactNode
+  parseError?: (error: FieldError) => ReactNode
   validation?: UseControllerProps<TFieldValues, TName>['rules']
   control?: Control<TFieldValues>
   inputProps?: TextFieldProps
   helperText?: TextFieldProps['helperText']
-  textReadOnly?: boolean
-  slotProps?: Omit<DatePickerSlotsComponentsProps<TDate>, 'textField'>
+  slotProps?: Omit<MobileDatePickerSlotsComponentsProps<TDate>, 'textField'>
   overwriteErrorMessages?: typeof defaultErrorMessages
 }
 
-type DatePickerElementComponent = <
+type MobileDatePickerElementComponent = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >(
-  props: DatePickerElementProps<TFieldValues, TName> & RefAttributes<HTMLDivElement>
+  props: MobileDatePickerElementProps<TFieldValues, TName> & RefAttributes<HTMLDivElement>
 ) => JSX.Element
 
-const DatePickerElement = forwardRef(function DatePickerElement<
+const MobileDatePickerElement = forwardRef(function MobileDatePickerElement<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
->(props: DatePickerElementProps<TFieldValues, TName>, ref: Ref<HTMLDivElement>): JSX.Element {
+>(props: MobileDatePickerElementProps<TFieldValues, TName>, ref: Ref<HTMLDivElement>): JSX.Element {
   const {
     parseError,
     name,
@@ -58,7 +56,6 @@ const DatePickerElement = forwardRef(function DatePickerElement<
     validation = {},
     inputProps,
     control,
-    textReadOnly,
     slotProps,
     overwriteErrorMessages,
     inputRef,
@@ -120,17 +117,11 @@ const DatePickerElement = forwardRef(function DatePickerElement<
   const handleInputRef = useForkRef(field.ref, inputRef)
 
   if (field?.value && typeof field?.value === 'string') {
-    field.value = new Date(field.value) as any // need to see if this works for all localization adaptors
+    field.value = new Date(field.value) as any
   }
 
-  const errorMessage = error
-    ? typeof customErrorFn === 'function'
-      ? customErrorFn(error)
-      : error.message
-    : null
-
   return (
-    <DatePicker
+    <MobileDatePicker
       {...rest}
       {...field}
       ref={ref}
@@ -152,28 +143,18 @@ const DatePickerElement = forwardRef(function DatePickerElement<
         textField: {
           ...inputProps,
           required,
-          error: !!errorMessage,
-          helperText: errorMessage ? errorMessage : inputProps?.helperText || rest.helperText,
-          inputProps: {
-            readOnly: !!textReadOnly,
-            ...inputProps?.inputProps
-          },
-          onBlur: (event) => {
-            field.onBlur()
-            if (typeof inputProps?.onBlur === 'function') {
-              inputProps.onBlur(event)
-            }
-          },
-          onFocus: () => {
-            console.log(inputRef)
-            // inputRef.current.showPicker()
-          }
+          error: !!error,
+          helperText: error
+            ? typeof customErrorFn === 'function'
+              ? customErrorFn(error)
+              : error.message
+            : inputProps?.helperText || rest.helperText
         }
       }}
     />
   )
 })
 
-DatePickerElement.displayName = 'DatePickerElement'
+MobileDatePickerElement.displayName = 'MobileDatePickerElement'
 
-export default DatePickerElement as DatePickerElementComponent
+export default MobileDatePickerElement as MobileDatePickerElementComponent
