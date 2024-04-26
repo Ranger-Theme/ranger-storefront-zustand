@@ -22,7 +22,7 @@ import type {
 import type { FormControlProps, SelectProps } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Cancel'
 
-import { useFormError } from '../FormErrorProvider'
+import { useFormError } from '../../providers/FormErrorProvider'
 
 export type MultiSelectElementProps<
   TFieldValues extends FieldValues = FieldValues,

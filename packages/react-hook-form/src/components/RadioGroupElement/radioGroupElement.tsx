@@ -13,7 +13,7 @@ import type { ChangeEvent, ReactNode, Ref, RefAttributes } from 'react'
 import type { Control, FieldError, FieldPath, FieldValues } from 'react-hook-form'
 import type { FormControlLabelProps, FormLabelProps } from '@mui/material'
 
-import { useFormError } from '../FormErrorProvider'
+import { useFormError } from '../../providers/FormErrorProvider'
 
 export type RadioGroupElementProps<
   TFieldValues extends FieldValues = FieldValues,

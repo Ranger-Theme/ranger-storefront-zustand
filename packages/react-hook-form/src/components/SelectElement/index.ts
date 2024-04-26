@@ -1,2 +1,2 @@
-export { default as SelectElement } from './selectElement'
+export { default } from './selectElement'
 export type { SelectElementProps } from './selectElement'

@@ -1,2 +1,2 @@
-export { default as PasswordRepeatElement } from './passwordRepeatElement'
+export { default } from './passwordRepeatElement'
 export type { PasswordRepeatElementProps } from './passwordRepeatElement'

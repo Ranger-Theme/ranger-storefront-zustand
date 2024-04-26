@@ -3,7 +3,7 @@ import { useWatch } from 'react-hook-form'
 import type { Ref, RefAttributes } from 'react'
 import type { FieldPath, FieldValues } from 'react-hook-form'
 
-import { PasswordElement } from '../PasswordElement'
+import PasswordElement from '../PasswordElement'
 import type { PasswordElementProps } from '../PasswordElement'
 
 export type PasswordRepeatElementProps<

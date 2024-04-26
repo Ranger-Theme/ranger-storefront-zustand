@@ -1,2 +1,2 @@
-export { default as SwitchElement } from './switchElement'
+export { default } from './switchElement'
 export type { SwitchElementProps } from './switchElement'

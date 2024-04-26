@@ -4,7 +4,7 @@ import { useController, UseControllerProps } from 'react-hook-form'
 import type { ReactNode, Ref, RefAttributes } from 'react'
 import type { Control, FieldError, FieldPath, FieldValues } from 'react-hook-form'
 
-import { useFormError } from '../FormErrorProvider'
+import { useFormError } from '../../providers/FormErrorProvider'
 import useTransform, { UseTransformOptions } from '../../plugins/useTransform'
 
 export type TextFieldElementProps<

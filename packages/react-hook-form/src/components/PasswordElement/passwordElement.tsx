@@ -4,7 +4,7 @@ import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import type { FieldPath, FieldValues } from 'react-hook-form'
 
-import { TextFieldElement } from '../TextFieldElement'
+import TextFieldElement from '../TextFieldElement'
 import type { TextFieldElementProps } from '../TextFieldElement'
 
 export type PasswordElementProps<

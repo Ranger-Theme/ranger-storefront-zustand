@@ -18,7 +18,7 @@ import type {
   DateTimePickerSlotsComponentsProps
 } from '@mui/x-date-pickers/DateTimePicker'
 
-import { useFormError } from '../FormErrorProvider'
+import { useFormError } from '../../providers/FormErrorProvider'
 import { defaultErrorMessages } from '../../messages/dateTimePicker'
 
 export type DateTimePickerElementProps<

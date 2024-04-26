@@ -19,7 +19,7 @@ import type {
   UseControllerProps
 } from 'react-hook-form'
 
-import { useFormError } from '../FormErrorProvider'
+import { useFormError } from '../../providers/FormErrorProvider'
 
 export type CheckboxElementProps<
   TFieldValues extends FieldValues = FieldValues,

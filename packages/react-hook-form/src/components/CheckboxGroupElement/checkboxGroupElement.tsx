@@ -19,7 +19,7 @@ import type {
 } from 'react-hook-form'
 import type { CheckboxProps, FormControlLabelProps } from '@mui/material'
 
-import { useFormError } from '../FormErrorProvider'
+import { useFormError } from '../../providers/FormErrorProvider'
 
 export type CheckboxGroupElementProps<
   TFieldValues extends FieldValues = FieldValues,

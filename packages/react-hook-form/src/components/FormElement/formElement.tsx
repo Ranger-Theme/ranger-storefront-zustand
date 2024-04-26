@@ -8,7 +8,7 @@ import type {
 } from 'react-hook-form'
 import type { FieldValues } from 'react-hook-form/dist/types/fields'
 
-export type FormContainerProps<T extends FieldValues = FieldValues> = PropsWithChildren<
+export type FormElementProps<T extends FieldValues = FieldValues> = PropsWithChildren<
   UseFormProps<T> & {
     onSuccess?: SubmitHandler<T>
     onError?: SubmitErrorHandler<T>
@@ -24,7 +24,7 @@ function FormProviderWithoutContext<TFieldValues extends FieldValues = FieldValu
   FormProps,
   children,
   ...useFormProps
-}: PropsWithChildren<FormContainerProps<TFieldValues>>) {
+}: PropsWithChildren<FormElementProps<TFieldValues>>) {
   const methods = useForm<TFieldValues>({
     ...useFormProps
   })
@@ -45,7 +45,7 @@ function FormProviderWithoutContext<TFieldValues extends FieldValues = FieldValu
   )
 }
 
-export default function FormContainer<TFieldValues extends FieldValues = FieldValues>({
+export default function FormElement<TFieldValues extends FieldValues = FieldValues>({
   handleSubmit,
   children,
   FormProps,
@@ -53,7 +53,7 @@ export default function FormContainer<TFieldValues extends FieldValues = FieldVa
   onSuccess,
   onError,
   ...useFormProps
-}: PropsWithChildren<FormContainerProps<TFieldValues>>) {
+}: PropsWithChildren<FormElementProps<TFieldValues>>) {
   if (!formContext) {
     return (
       <FormProviderWithoutContext

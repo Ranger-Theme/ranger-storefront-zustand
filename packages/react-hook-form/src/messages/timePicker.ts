@@ -1,4 +1,4 @@
-import { TimeValidationError } from '@mui/x-date-pickers'
+import type { TimeValidationError } from '@mui/x-date-pickers'
 
 export const defaultErrorMessages: {
   [v in NonNullable<TimeValidationError>]: string
@@ -11,5 +11,8 @@ export const defaultErrorMessages: {
   minutesStep: 'Invalid minutes step',
   'shouldDisableTime-hours': 'Specified hour is disabled',
   'shouldDisableTime-minutes': 'Specified minute is disabled',
-  'shouldDisableTime-seconds': 'Specified second is disabled'
+  'shouldDisableTime-seconds': 'Specified second is disabled',
+  'shouldDisableClock-hours': 'Specified hour on the clock is disabled',
+  'shouldDisableClock-minutes': 'Specified minute on the clock is disabled',
+  'shouldDisableClock-seconds': 'Specified second on the clock is disabled'
 }

@@ -18,7 +18,7 @@ import type {
 } from '@mui/x-date-pickers/TimePicker'
 import { useLocalizationContext, validateTime } from '@mui/x-date-pickers/internals'
 
-import { useFormError } from '../FormErrorProvider'
+import { useFormError } from '../../providers/FormErrorProvider'
 import { defaultErrorMessages } from '../../messages/timePicker'
 
 export type TimePickerElementProps<

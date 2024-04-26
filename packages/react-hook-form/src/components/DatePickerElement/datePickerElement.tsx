@@ -19,7 +19,7 @@ import type {
 } from '@mui/x-date-pickers/DatePicker'
 import type { DateValidationError } from '@mui/x-date-pickers'
 
-import { useFormError } from '../FormErrorProvider'
+import { useFormError } from '../../providers/FormErrorProvider'
 import { defaultErrorMessages } from '../../messages/datePicker'
 
 export type DatePickerElementProps<

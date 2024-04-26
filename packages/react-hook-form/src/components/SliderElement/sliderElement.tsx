@@ -11,7 +11,7 @@ import type {
 } from 'react-hook-form'
 import type { FormControlProps, SliderProps } from '@mui/material'
 
-import { useFormError } from '../FormErrorProvider'
+import { useFormError } from '../../providers/FormErrorProvider'
 
 export type SliderElementProps<
   TFieldValues extends FieldValues = FieldValues,

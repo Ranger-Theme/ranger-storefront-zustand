@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, Stack } from '@mui/material'
 import {
-  FormContainer,
+  FormElement,
   PasswordElement,
   TextFieldElement,
   useForm
@@ -31,7 +31,7 @@ const LoginPage = () => {
   return (
     <div>
       <h3>Login Form</h3>
-      <FormContainer formContext={form} onSuccess={handleOnSuccess}>
+      <FormElement formContext={form} onSuccess={handleOnSuccess}>
         <Stack>
           <TextFieldElement name="name" label="User Name" required />
           <PasswordElement name="password" label="Password" required />
@@ -40,7 +40,7 @@ const LoginPage = () => {
             <span>Submit</span>
           </Button>
         </Stack>
-      </FormContainer>
+      </FormElement>
       <Link href="/register">
         <span>Create An Account</span>
       </Link>

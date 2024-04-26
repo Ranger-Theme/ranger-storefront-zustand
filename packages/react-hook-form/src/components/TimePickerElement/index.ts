@@ -1,2 +1,2 @@
-export { default as TimePickerElement } from './timePickerElement'
+export { default } from './timePickerElement'
 export type { TimePickerElementProps } from './timePickerElement'
