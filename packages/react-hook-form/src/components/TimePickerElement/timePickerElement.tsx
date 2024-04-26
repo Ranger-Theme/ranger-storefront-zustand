@@ -1,21 +1,24 @@
-import {
-  TimePicker,
-  TimePickerProps,
-  TimePickerSlotsComponentsProps
-} from '@mui/x-date-pickers/TimePicker'
-import {
+import { forwardRef } from 'react'
+import { useController } from 'react-hook-form'
+import { useForkRef } from '@mui/material'
+import { TimePicker } from '@mui/x-date-pickers/TimePicker'
+import type { ReactNode, Ref, RefAttributes } from 'react'
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
   PathValue,
-  useController,
   UseControllerProps
 } from 'react-hook-form'
-import { TextFieldProps, useForkRef } from '@mui/material'
-import { useFormError } from '../FormErrorProvider'
-import { forwardRef, ReactNode, Ref, RefAttributes } from 'react'
+import type { TextFieldProps } from '@mui/material'
+import type {
+  TimePickerProps,
+  TimePickerSlotsComponentsProps
+} from '@mui/x-date-pickers/TimePicker'
 import { useLocalizationContext, validateTime } from '@mui/x-date-pickers/internals'
+
+import { useFormError } from '../FormErrorProvider'
 import { defaultErrorMessages } from '../../messages/timePicker'
 
 export type TimePickerElementProps<

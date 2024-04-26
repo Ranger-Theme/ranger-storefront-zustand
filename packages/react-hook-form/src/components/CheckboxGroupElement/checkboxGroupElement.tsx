@@ -1,26 +1,27 @@
+import { forwardRef } from 'react'
+import { useController } from 'react-hook-form'
 import {
   Checkbox,
-  CheckboxProps,
   FormControl,
   FormControlLabel,
-  FormControlLabelProps,
   FormGroup,
   FormHelperText,
   FormLabel,
   useTheme
 } from '@mui/material'
-import {
+import type { ReactNode, Ref, RefAttributes } from 'react'
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
-  useController,
   UseControllerProps
 } from 'react-hook-form'
-import { useFormError } from './FormErrorProvider'
-import { forwardRef, ReactNode, Ref, RefAttributes } from 'react'
+import type { CheckboxProps, FormControlLabelProps } from '@mui/material'
 
-export type CheckboxButtonGroupProps<
+import { useFormError } from '../FormErrorProvider'
+
+export type CheckboxGroupElementProps<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 > = {
@@ -42,17 +43,17 @@ export type CheckboxButtonGroupProps<
   labelProps?: Omit<FormControlLabelProps, 'label' | 'control'>
 }
 
-type CheckboxButtonGroupComponent = <
+type CheckboxGroupElementComponent = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >(
-  props: CheckboxButtonGroupProps<TFieldValues, TName> & RefAttributes<HTMLDivElement>
+  props: CheckboxGroupElementProps<TFieldValues, TName> & RefAttributes<HTMLDivElement>
 ) => JSX.Element
 
-const CheckboxButtonGroup = forwardRef(function CheckboxButtonGroup<
+const CheckboxGroupElement = forwardRef(function CheckboxGroupElement<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
->(props: CheckboxButtonGroupProps<TFieldValues, TName>, ref: Ref<HTMLDivElement>): JSX.Element {
+>(props: CheckboxGroupElementProps<TFieldValues, TName>, ref: Ref<HTMLDivElement>): JSX.Element {
   const {
     helperText,
     options,
@@ -104,7 +105,7 @@ const CheckboxButtonGroup = forwardRef(function CheckboxButtonGroup<
         1
       )
     }
-    // setValue(name, newArray, { shouldValidate: true })
+
     onChange(newArray)
     if (typeof rest.onChange === 'function') {
       rest.onChange(newArray)
@@ -119,7 +120,7 @@ const CheckboxButtonGroup = forwardRef(function CheckboxButtonGroup<
           const optionKey = option[valueKey]
           if (optionKey === undefined) {
             console.error(
-              `CheckboxButtonGroup: valueKey ${valueKey} does not exist on option`,
+              `CheckboxGroupElement: valueKey ${valueKey} does not exist on option`,
               option
             )
           }
@@ -153,6 +154,6 @@ const CheckboxButtonGroup = forwardRef(function CheckboxButtonGroup<
   )
 })
 
-CheckboxButtonGroup.displayName = 'CheckboxButtonGroup'
+CheckboxGroupElement.displayName = 'CheckboxGroupElement'
 
-export default CheckboxButtonGroup as CheckboxButtonGroupComponent
+export default CheckboxGroupElement as CheckboxGroupElementComponent

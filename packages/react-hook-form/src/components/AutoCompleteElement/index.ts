@@ -1,3 +1,2 @@
-/*
- * @Copyright: @ Silk Software Corp. All Rights Reserved
- */
+export { default as AutocompleteElement } from './autoCompleteElement'
+export type { AutocompleteElementProps } from './autoCompleteElement'

@@ -1,22 +1,25 @@
-import {
-  DateTimePicker,
-  DateTimePickerProps,
-  DateTimePickerSlotsComponentsProps
-} from '@mui/x-date-pickers/DateTimePicker'
-import {
+import { forwardRef } from 'react'
+import { useController } from 'react-hook-form'
+import { useForkRef } from '@mui/material'
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
+import { useLocalizationContext, validateDateTime } from '@mui/x-date-pickers/internals'
+import type { ReactNode, Ref, RefAttributes } from 'react'
+import type {
   Control,
   FieldError,
   FieldPath,
   PathValue,
-  useController,
+  FieldValues,
   UseControllerProps
 } from 'react-hook-form'
-import { TextFieldProps, useForkRef } from '@mui/material'
-import { FieldValues } from 'react-hook-form'
+import type { TextFieldProps } from '@mui/material'
+import type {
+  DateTimePickerProps,
+  DateTimePickerSlotsComponentsProps
+} from '@mui/x-date-pickers/DateTimePicker'
+
 import { useFormError } from '../FormErrorProvider'
-import { forwardRef, ReactNode, Ref, RefAttributes } from 'react'
 import { defaultErrorMessages } from '../../messages/dateTimePicker'
-import { useLocalizationContext, validateDateTime } from '@mui/x-date-pickers/internals'
 
 export type DateTimePickerElementProps<
   TFieldValues extends FieldValues = FieldValues,

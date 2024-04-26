@@ -1,21 +1,17 @@
-import {
+import { forwardRef } from 'react'
+import { useController } from 'react-hook-form'
+import { FormControl, FormHelperText, FormLabel, Slider } from '@mui/material'
+import type { ReactNode, Ref, RefAttributes } from 'react'
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
-  useController,
   UseControllerProps
 } from 'react-hook-form'
-import {
-  FormControl,
-  FormControlProps,
-  FormHelperText,
-  FormLabel,
-  Slider,
-  SliderProps
-} from '@mui/material'
+import type { FormControlProps, SliderProps } from '@mui/material'
+
 import { useFormError } from '../FormErrorProvider'
-import { forwardRef, ReactNode, Ref, RefAttributes } from 'react'
 
 export type SliderElementProps<
   TFieldValues extends FieldValues = FieldValues,

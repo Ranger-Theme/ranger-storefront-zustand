@@ -1,12 +1,9 @@
-import { Control, FieldPath, FieldValues, useController } from 'react-hook-form'
-import {
-  FormControlLabel,
-  FormControlLabelProps,
-  Switch,
-  SwitchProps,
-  useForkRef
-} from '@mui/material'
-import { forwardRef, Ref, RefAttributes } from 'react'
+import { forwardRef } from 'react'
+import { useController } from 'react-hook-form'
+import { FormControlLabel, Switch, useForkRef } from '@mui/material'
+import type { Ref, RefAttributes } from 'react'
+import type { Control, FieldPath, FieldValues } from 'react-hook-form'
+import type { FormControlLabelProps, SwitchProps } from '@mui/material'
 
 export type SwitchElementProps<
   TFieldValues extends FieldValues = FieldValues,

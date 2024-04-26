@@ -1,19 +1,21 @@
-import { ChangeEvent, forwardRef, ReactNode, Ref, RefAttributes } from 'react'
-import { Control, FieldError, FieldPath, FieldValues, useController } from 'react-hook-form'
+import { forwardRef } from 'react'
+import { useController } from 'react-hook-form'
 import {
   FormControl,
   FormControlLabel,
-  FormControlLabelProps,
   FormHelperText,
   FormLabel,
-  FormLabelProps,
   Radio,
   RadioGroup,
   useTheme
 } from '@mui/material'
-import { useFormError } from './FormErrorProvider'
+import type { ChangeEvent, ReactNode, Ref, RefAttributes } from 'react'
+import type { Control, FieldError, FieldPath, FieldValues } from 'react-hook-form'
+import type { FormControlLabelProps, FormLabelProps } from '@mui/material'
 
-export type RadioButtonGroupProps<
+import { useFormError } from '../FormErrorProvider'
+
+export type RadioGroupElementProps<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 > = {
@@ -37,17 +39,17 @@ export type RadioButtonGroupProps<
   disabled?: boolean
 }
 
-type RadioButtonGroupComponent = <
+type RadioGroupElementComponent = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >(
-  props: RadioButtonGroupProps<TFieldValues, TName> & RefAttributes<HTMLDivElement>
+  props: RadioGroupElementProps<TFieldValues, TName> & RefAttributes<HTMLDivElement>
 ) => JSX.Element
 
-const RadioButtonGroup = forwardRef(function RadioButtonGroup<
+const RadioGroupElement = forwardRef(function RadioGroupElement<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
->(props: RadioButtonGroupProps<TFieldValues, TName>, ref: Ref<HTMLDivElement>): JSX.Element {
+>(props: RadioGroupElementProps<TFieldValues, TName>, ref: Ref<HTMLDivElement>): JSX.Element {
   const {
     helperText,
     options,
@@ -127,7 +129,10 @@ const RadioButtonGroup = forwardRef(function RadioButtonGroup<
           const optionKey = option[valueKey]
           const optionDisabled = option[disabledKey] || false
           if (optionKey === undefined) {
-            console.error(`RadioButtonGroup: valueKey ${valueKey} does not exist on option`, option)
+            console.error(
+              `RadioGroupElement: valueKey ${valueKey} does not exist on option`,
+              option
+            )
           }
           let val = returnObject ? field.value?.[valueKey] : field.value
           if (type === 'number') {
@@ -158,6 +163,6 @@ const RadioButtonGroup = forwardRef(function RadioButtonGroup<
   )
 })
 
-RadioButtonGroup.displayName = 'RadioButtonGroup'
+RadioGroupElement.displayName = 'RadioGroupElement'
 
-export default RadioButtonGroup as RadioButtonGroupComponent
+export default RadioGroupElement as RadioGroupElementComponent
