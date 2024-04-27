@@ -116,6 +116,22 @@ const RegisterPage = () => {
                 }
               ]}
             />
+            <SelectElement
+              label="Required"
+              name="choose"
+              options={[
+                {
+                  id: '1',
+                  label: 'Label 1'
+                },
+                {
+                  id: '2',
+                  label: 'label 2'
+                }
+              ]}
+              required
+            />
+            <SliderElement name="account.slider" label="Required Label" required />
             <DatePickerElement
               label="Required Picker"
               name="account.date"
@@ -132,21 +148,6 @@ const RegisterPage = () => {
                 required: 'Custom required message'
               }}
             />
-            <SelectElement
-              label="Required"
-              name="choose"
-              options={[
-                {
-                  id: '1',
-                  label: 'Label 1'
-                },
-                {
-                  id: '2',
-                  label: 'label 2'
-                }
-              ]}
-              required
-            />
             <TimePickerElement
               label="Time Picker"
               name="account.time"
@@ -155,7 +156,6 @@ const RegisterPage = () => {
                 required: 'Custom required message'
               }}
             />
-            <SliderElement name="account.slider" label="Required Label" required />
             <Button type="submit" color="primary">
               <span>Submit</span>
             </Button>

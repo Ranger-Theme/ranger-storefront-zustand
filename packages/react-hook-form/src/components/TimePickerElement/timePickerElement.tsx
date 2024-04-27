@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, useState } from 'react'
 import { useController } from 'react-hook-form'
 import { useForkRef } from '@mui/material'
 import { TimePicker } from '@mui/x-date-pickers/TimePicker'
@@ -65,6 +65,7 @@ const TimePickerElement = forwardRef(function TimePickerElement<
   } = props
 
   const adapter = useLocalizationContext()
+  const [open, setOpen] = useState<boolean>(false)
 
   const errorMsgFn = useFormError()
   const customErrorFn = parseError || errorMsgFn
@@ -126,6 +127,7 @@ const TimePickerElement = forwardRef(function TimePickerElement<
     <TimePicker
       {...rest}
       {...field}
+      open={open}
       ref={ref}
       inputRef={handleInputRef}
       onClose={(...args) => {
@@ -133,6 +135,7 @@ const TimePickerElement = forwardRef(function TimePickerElement<
         if (rest.onClose) {
           rest.onClose(...args)
         }
+        setOpen(false)
       }}
       onChange={(v, keyboardInputValue) => {
         field.onChange(v, keyboardInputValue)
@@ -154,6 +157,12 @@ const TimePickerElement = forwardRef(function TimePickerElement<
           inputProps: {
             readOnly: textReadOnly,
             ...inputProps?.inputProps
+          },
+          onClick: (event) => {
+            if (typeof inputProps?.onClick === 'function') {
+              inputProps.onClick(event)
+            }
+            setOpen(true)
           }
         }
       }}

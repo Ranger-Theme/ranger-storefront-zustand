@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, useState } from 'react'
 import { useController } from 'react-hook-form'
 import { useForkRef } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
@@ -66,6 +66,7 @@ const DatePickerElement = forwardRef(function DatePickerElement<
   } = props
 
   const adapter = useLocalizationContext()
+  const [open, setOpen] = useState<boolean>(false)
 
   const errorMsgFn = useFormError()
   const customErrorFn = parseError || errorMsgFn
@@ -133,6 +134,7 @@ const DatePickerElement = forwardRef(function DatePickerElement<
     <DatePicker
       {...rest}
       {...field}
+      open={open}
       ref={ref}
       inputRef={handleInputRef}
       onClose={(...args) => {
@@ -140,6 +142,7 @@ const DatePickerElement = forwardRef(function DatePickerElement<
         if (rest.onClose) {
           rest.onClose(...args)
         }
+        setOpen(false)
       }}
       onChange={(v, keyboardInputValue) => {
         field.onChange(v, keyboardInputValue)
@@ -164,9 +167,11 @@ const DatePickerElement = forwardRef(function DatePickerElement<
               inputProps.onBlur(event)
             }
           },
-          onFocus: () => {
-            console.log(inputRef)
-            // inputRef.current.showPicker()
+          onClick: (event) => {
+            if (typeof inputProps?.onClick === 'function') {
+              inputProps.onClick(event)
+            }
+            setOpen(true)
           }
         }
       }}
