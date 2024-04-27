@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  nextjs:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+    networks:
+    - my_network
+
+  ngnix:
+    build: 
+      context: ..
+      dockerfile: docker/nginx/Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - nextjs
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+  my_network:
+    external: true
