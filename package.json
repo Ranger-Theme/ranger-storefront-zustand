@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "deploy": "pm2 start pm2.config.js",
+    "show": "pm2 list",
     "clean": "rimraf dist"
   },
   "dependencies": {

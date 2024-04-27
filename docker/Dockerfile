@@ -24,6 +24,9 @@ RUN pnpm build
 # Expose the listening port
 EXPOSE 3000
 
+WORKDIR /usr/app
+RUN mkdir /usr/app/pm2/logs
+
 # Run container as non-root (unprivileged) user
 # The node user is provided in the Node.js Alpine base image
 USER node

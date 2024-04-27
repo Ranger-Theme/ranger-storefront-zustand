@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'nexperia-web',
+      name: 'next',
       exec_mode: 'cluster',
       instances: 1,
       args: 'start',
@@ -16,7 +16,7 @@ module.exports = {
       exp_backoff_restart_delay: 100,
       ignore_watch: ['node_modules'],
       log_date_format: 'YYYY-MM-DD HH:mm Z',
-      error_file: './pm2/logs/nexperia_web_err.log'
+      error_file: './pm2/logs/next_err.log'
     }
   ]
 }
