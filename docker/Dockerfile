@@ -25,6 +25,7 @@ RUN pnpm build
 EXPOSE 3000
 
 WORKDIR /usr/app
+RUN mkdir /usr/app/pm2
 RUN mkdir /usr/app/pm2/logs
 
 # Run container as non-root (unprivileged) user
