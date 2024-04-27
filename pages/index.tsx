@@ -13,9 +13,9 @@ type PageContext = NextPageContext & {
   zustandStore: StoreApi<NextStore>
 }
 
-const fetchCmsPageQuery = async (identifier: string, locale: string) => {
+const fetchCmsPageQuery = (identifier: string, locale: string) => {
   const client = createClient(locale)
-  return await client.request<
+  return client.request<
     CmsPageQuery,
     {
       identifier: string
@@ -35,7 +35,7 @@ const Home = ({ cmsPage }: CmsPageQuery) => {
 
 Home.getInitialProps = async ({ zustandStore, locale, defaultLocale }: PageContext) => {
   const store: NextStore = zustandStore.getState()
-  const storeConfig = store.app.storeConfig
+  const { storeConfig } = store.app
   const identifier: string = storeConfig?.cms_home ?? ''
   const i18n: string = locale === defaultLocale ? '' : `${locale}/`
 

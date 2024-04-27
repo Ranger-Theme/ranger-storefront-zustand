@@ -35,9 +35,9 @@ interface NextAppContext extends Omit<AppContext, 'ctx'> {
   ctx: NextCtx
 }
 
-const fetchStoreQuery = async (locale: string) => {
+const fetchStoreQuery = (locale: string) => {
   const client = createClient(locale)
-  return await client.request<StoreConfigQuery>(GET_STORE_CONFIG)
+  return client.request<StoreConfigQuery>(GET_STORE_CONFIG)
 }
 
 const App = ({ Component, pageProps, initialState, ...props }: NextAppProps) => {
@@ -47,7 +47,7 @@ const App = ({ Component, pageProps, initialState, ...props }: NextAppProps) => 
     if (error.code === IntlErrorCode.MISSING_MESSAGE) {
       console.error(error)
     } else {
-      console.log(error)
+      console.info(error)
     }
   }
 

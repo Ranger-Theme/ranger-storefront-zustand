@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "@ranger-theme/typescript-config": "workspace:^",
-    "tsup": "^5.10.1"
+    "tsup": "^8.0.2"
   },
   "peerDependencies": {
     "react": "^18.2.0",

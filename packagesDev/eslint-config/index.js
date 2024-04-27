@@ -2,6 +2,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'airbnb',
+    'plugin:@next/next/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended'
   ],
@@ -56,6 +57,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'react/react-in-jsx-scope': 0,
     'react/require-default-props': 0,
+    'react/no-unstable-nested-components': 0,
     '@typescript-eslint/ban-types': 0,
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/no-empty-interface': 0,

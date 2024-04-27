@@ -10,7 +10,7 @@ services:
     environment:
       - NODE_ENV=production
     networks:
-    - my_network
+    - next_network
 
   ngnix:
     build: 
@@ -26,5 +26,5 @@ services:
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname
 networks:
-  my_network:
+  next_network:
     external: true

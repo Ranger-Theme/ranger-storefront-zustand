@@ -1,11 +1,8 @@
 {
   "extends": "@ranger-theme/typescript-config/react-library.json",
   "compilerOptions": {
-    "baseUrl": "./src",
-    "lib": ["dom", "ES2015"],
-    "paths": {
-      "@/*": ["./*"]
-    }
+    "baseUrl": "./",
+    "lib": ["dom", "ES2015"]
   },
   "include": ["/**/*.ts", "/**/*.tsx"],
   "exclude": ["dist", "build", "node_modules"]

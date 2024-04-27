@@ -1,2 +1,2 @@
-export { GoogleTagManagerNoScript } from '@/components/googleTagManagerNoScript'
-export { GoogleTagManagerScript } from '@/components/googleTagManagerScript'
+export { GoogleTagManagerNoScript } from './src/components/googleTagManagerNoScript'
+export { GoogleTagManagerScript } from './src/components/googleTagManagerScript'
