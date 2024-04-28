@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 
 services:
   nextjs:
@@ -10,7 +10,7 @@ services:
     environment:
       - NODE_ENV=production
 
-  ngnix:
+  nginx:
     build: 
       context: ..
       dockerfile: docker/nginx/Dockerfile
