@@ -1,4 +1,5 @@
 import { Button, Stack } from '@mui/material'
+import { format } from 'date-fns'
 import {
   FormElement,
   CheckboxGroupElement,
@@ -24,11 +25,11 @@ type FormValues = {
     label: string[]
     multiple: string[]
     inline: string
-    date: object
-    time_picker: object
+    date: Date
+    time_picker: Date
     choose: string
     comment: ''
-    time: object
+    time: Date
     slider: number
   }
 }
@@ -54,7 +55,7 @@ const RegisterPage = () => {
   })
 
   const handleOnSuccess = (values: FormValues) => {
-    console.info(typeof values.account.date)
+    console.info(format(values.account.date, 'yyyy-MM-dd'))
   }
 
   return (

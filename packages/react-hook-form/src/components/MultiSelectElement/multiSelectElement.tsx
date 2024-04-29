@@ -118,6 +118,33 @@ const MultiSelectElement = forwardRef(function MultiSelectElement<
     typeof customErrorFn === 'function' ? customErrorFn(error as any) : error?.message ?? ''
   const renderHelperText = error ? defaultText : helperText
 
+  const chips = showChips
+    ? (selected: any) => (
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {(preserveOrder
+            ? options.filter((option) => (selected as any[]).includes(option))
+            : (selected as any[]) || []
+          ).map((selectedValue) => (
+            <Chip
+              key={selectedValue}
+              label={renderLabel(selectedValue)}
+              style={{ display: 'flex', flexWrap: 'wrap' }}
+              onDelete={() => {
+                field.onChange(field.value.filter((i: any) => i !== selectedValue))
+              }}
+              deleteIcon={
+                <CloseIcon
+                  onMouseDown={(ev) => {
+                    ev.stopPropagation()
+                  }}
+                />
+              }
+            />
+          ))}
+        </div>
+      )
+    : (selected: any) => (Array.isArray(selected) ? selected.map(renderLabel).join(', ') : '')
+
   return (
     <FormControl
       {...formControlProps}
@@ -161,36 +188,7 @@ const MultiSelectElement = forwardRef(function MultiSelectElement<
             })
           }
         }}
-        renderValue={
-          typeof rest.renderValue === 'function'
-            ? rest.renderValue
-            : showChips
-              ? (selected) => (
-                  <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                    {(preserveOrder
-                      ? options.filter((option) => (selected as any[]).includes(option))
-                      : (selected as any[]) || []
-                    ).map((selectedValue) => (
-                      <Chip
-                        key={selectedValue}
-                        label={renderLabel(selectedValue)}
-                        style={{ display: 'flex', flexWrap: 'wrap' }}
-                        onDelete={() => {
-                          field.onChange(field.value.filter((i: any) => i !== selectedValue))
-                        }}
-                        deleteIcon={
-                          <CloseIcon
-                            onMouseDown={(ev) => {
-                              ev.stopPropagation()
-                            }}
-                          />
-                        }
-                      />
-                    ))}
-                  </div>
-                )
-              : (selected) => (Array.isArray(selected) ? selected.map(renderLabel).join(', ') : '')
-        }
+        renderValue={typeof rest.renderValue === 'function' ? rest.renderValue : chips}
         inputRef={handleInputRef}>
         {options.map((item) => {
           const val: string | number = item[itemValue || itemKey] || item

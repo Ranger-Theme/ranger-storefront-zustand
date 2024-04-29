@@ -5,6 +5,7 @@ import {
   PasswordElement,
   TextFieldElement,
   RatingElement,
+  FileUploadElement,
   useForm
 } from '@ranger-theme/react-hook-form'
 
@@ -15,6 +16,7 @@ type FormValues = {
   password: string
   agreen: boolean
   rating: number
+  files: any
 }
 
 const LoginPage = () => {
@@ -23,7 +25,8 @@ const LoginPage = () => {
       name: '',
       password: '',
       agreen: true,
-      rating: 0
+      rating: 0,
+      files: null
     }
   })
 
@@ -39,6 +42,7 @@ const LoginPage = () => {
           <TextFieldElement name="name" label="User Name" required />
           <PasswordElement name="password" label="Password" required />
           <RatingElement name="rating" label="Rating" required />
+          <FileUploadElement name="files" label="Upload Files" required multiple />
           <AgreeTerms />
           <Button type="submit" color="primary">
             <span>Submit</span>

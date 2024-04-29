@@ -18,27 +18,23 @@ export type FormElementProps<T extends FieldValues = FieldValues> = PropsWithChi
   }
 >
 
-function FormProviderWithoutContext<TFieldValues extends FieldValues = FieldValues>({
+const FormProviderWithoutContext = <TFieldValues extends FieldValues = FieldValues>({
   onSuccess,
   onError,
   FormProps,
   children,
   ...useFormProps
-}: PropsWithChildren<FormElementProps<TFieldValues>>) {
+}: PropsWithChildren<FormElementProps<TFieldValues>>) => {
   const methods = useForm<TFieldValues>({
     ...useFormProps
   })
   const { handleSubmit } = methods
+  const defaultFunc = () => console.info('submit handler `onSuccess` is missing')
+  const handleSuccess = onSuccess || defaultFunc
 
   return (
     <FormProvider {...methods}>
-      <form
-        onSubmit={handleSubmit(
-          onSuccess ? onSuccess : () => console.info('submit handler `onSuccess` is missing'),
-          onError
-        )}
-        noValidate
-        {...FormProps}>
+      <form onSubmit={handleSubmit(handleSuccess, onError)} noValidate {...FormProps}>
         {children}
       </form>
     </FormProvider>
@@ -66,18 +62,12 @@ export default function FormElement<TFieldValues extends FieldValues = FieldValu
     console.warn('Property `onSuccess` will be ignored because handleSubmit is provided')
   }
 
+  const defaultFunc = () => console.info('submit handler `onSuccess` is missing')
+  const handleSuccess = onSuccess ? formContext.handleSubmit(onSuccess, onError) : defaultFunc
+
   return (
     <FormProvider {...formContext}>
-      <form
-        noValidate
-        {...FormProps}
-        onSubmit={
-          handleSubmit
-            ? handleSubmit
-            : onSuccess
-              ? formContext.handleSubmit(onSuccess, onError)
-              : () => console.info('submit handler `onSuccess` is missing')
-        }>
+      <form noValidate {...FormProps} onSubmit={handleSubmit || handleSuccess}>
         {children}
       </form>
     </FormProvider>

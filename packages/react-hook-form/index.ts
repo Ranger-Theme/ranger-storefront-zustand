@@ -10,6 +10,9 @@ export type { CheckboxGroupElementProps } from './src/components/CheckboxGroupEl
 export { default as DatePickerElement } from './src/components/DatePickerElement'
 export type { DatePickerElementProps } from './src/components/DatePickerElement'
 
+export { default as FileUploadElement } from './src/components/FileUploadElement'
+export type { FileUploadElementProps } from './src/components/FileUploadElement'
+
 export { default as DateTimePickerElement } from './src/components/DateTimePickerElement'
 export type { DateTimePickerElementProps } from './src/components/DateTimePickerElement'
 

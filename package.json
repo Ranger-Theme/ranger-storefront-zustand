@@ -33,6 +33,7 @@
     "pm2": "^5.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-use": "^17.5.0",
     "zustand": "^4.5.2"
   },
