@@ -85,6 +85,9 @@ const SelectElement = forwardRef(function SelectElement<
   })
 
   const handleInputRef = useForkRef(field.ref, inputRef)
+  const defaultText =
+    typeof customErrorFn === 'function' ? customErrorFn(error as any) : error?.message ?? ''
+  const renderHelperText = error ? defaultText : rest.helperText
 
   // handle shrink on number input fields
   if (type === 'number' && typeof field.value !== 'undefined') {
@@ -117,13 +120,7 @@ const SelectElement = forwardRef(function SelectElement<
       select
       required={required}
       error={!!error}
-      helperText={
-        error
-          ? typeof customErrorFn === 'function'
-            ? customErrorFn(error)
-            : error.message
-          : rest.helperText
-      }
+      helperText={renderHelperText}
       inputRef={handleInputRef}>
       {isNativeSelect && <option />}
       {options.map((item: any) =>

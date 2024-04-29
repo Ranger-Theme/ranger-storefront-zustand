@@ -67,6 +67,9 @@ const TextareaElement = forwardRef(function TextareaElement<
   })
 
   const handleInputRef = useForkRef(field.ref, inputRef)
+  const defaultText =
+    typeof customErrorFn === 'function' ? customErrorFn(error as any) : error?.message ?? ''
+  const renderHelperText = error ? defaultText : rest.helperText
 
   return (
     <TextField
@@ -82,13 +85,7 @@ const TextareaElement = forwardRef(function TextareaElement<
       onBlur={field.onBlur}
       required={required}
       error={!!error}
-      helperText={
-        error
-          ? typeof customErrorFn === 'function'
-            ? customErrorFn(error)
-            : error.message
-          : rest.helperText
-      }
+      helperText={renderHelperText}
       inputRef={handleInputRef}
       multiline
       InputProps={{

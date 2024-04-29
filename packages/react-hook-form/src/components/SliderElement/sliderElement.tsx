@@ -71,7 +71,7 @@ const SliderElement = forwardRef(function SliderElement<
 
   const defaultText =
     typeof customErrorFn === 'function' ? customErrorFn(error as any) : error?.message ?? ''
-  const parsedHelperText = error ? defaultText : null
+  const renderHelperText = error ? defaultText : null
 
   return (
     <FormControl error={invalid} required={required} fullWidth {...formControlProps} ref={ref}>
@@ -86,7 +86,7 @@ const SliderElement = forwardRef(function SliderElement<
         onChange={field.onChange}
         valueLabelDisplay={other.valueLabelDisplay || 'auto'}
       />
-      {parsedHelperText && <FormHelperText error={invalid}>{parsedHelperText}</FormHelperText>}
+      {renderHelperText && <FormHelperText error={invalid}>{renderHelperText}</FormHelperText>}
     </FormControl>
   )
 })

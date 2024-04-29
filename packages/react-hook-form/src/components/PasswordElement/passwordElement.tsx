@@ -32,6 +32,7 @@ const PasswordElement = forwardRef(function PasswordElement<
     ...rest
   } = props
   const [password, setPassword] = useState<boolean>(true)
+
   return (
     <TextFieldElement
       {...rest}

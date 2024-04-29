@@ -34,7 +34,7 @@ function FormProviderWithoutContext<TFieldValues extends FieldValues = FieldValu
     <FormProvider {...methods}>
       <form
         onSubmit={handleSubmit(
-          onSuccess ? onSuccess : () => console.log('submit handler `onSuccess` is missing'),
+          onSuccess ? onSuccess : () => console.info('submit handler `onSuccess` is missing'),
           onError
         )}
         noValidate
@@ -76,7 +76,7 @@ export default function FormElement<TFieldValues extends FieldValues = FieldValu
             ? handleSubmit
             : onSuccess
               ? formContext.handleSubmit(onSuccess, onError)
-              : () => console.log('submit handler `onSuccess` is missing')
+              : () => console.info('submit handler `onSuccess` is missing')
         }>
         {children}
       </form>

@@ -74,7 +74,7 @@ const RatingElement = forwardRef(function RatingElement<
 
   const defaultText =
     typeof customErrorFn === 'function' ? customErrorFn(error as any) : error?.message ?? ''
-  const parsedHelperText = error ? defaultText : null
+  const renderHelperText = error ? defaultText : null
 
   if (field.value > max) {
     form.setValue(name, max as any)
@@ -98,7 +98,7 @@ const RatingElement = forwardRef(function RatingElement<
           }
         }}
       />
-      {parsedHelperText && <FormHelperText error={invalid}>{parsedHelperText}</FormHelperText>}
+      {renderHelperText && <FormHelperText error={invalid}>{renderHelperText}</FormHelperText>}
     </FormControl>
   )
 })
