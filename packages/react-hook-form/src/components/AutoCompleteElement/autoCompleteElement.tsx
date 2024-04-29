@@ -116,6 +116,10 @@ const AutocompleteElement = forwardRef(function AutocompleteElement<
 
   const handleInputRef = useForkRef(field.ref, textFieldProps?.inputRef)
 
+  const defaultText =
+    typeof customErrorFn === 'function' ? customErrorFn(error as any) : error?.message ?? ''
+  const renderHelperText = error ? defaultText : textFieldProps?.helperText
+
   let currentValue = multiple ? field.value || [] : field.value ?? null
 
   if (matchId) {
@@ -164,8 +168,8 @@ const AutocompleteElement = forwardRef(function AutocompleteElement<
       renderOption={
         autocompleteProps?.renderOption ??
         (showCheckbox
-          ? (props, option, { selected }) => (
-              <li {...props}>
+          ? (checkProps, option, { selected }) => (
+              <li {...checkProps}>
                 <Checkbox sx={{ marginRight: 1 }} checked={selected} />
                 {autocompleteProps?.getOptionLabel?.(option) || option.label || option}
               </li>
@@ -204,13 +208,7 @@ const AutocompleteElement = forwardRef(function AutocompleteElement<
             ...params.inputProps,
             ...textFieldProps?.inputProps
           }}
-          helperText={
-            error
-              ? typeof customErrorFn === 'function'
-                ? customErrorFn(error)
-                : error.message
-              : textFieldProps?.helperText
-          }
+          helperText={renderHelperText}
           inputRef={handleInputRef}
         />
       )}

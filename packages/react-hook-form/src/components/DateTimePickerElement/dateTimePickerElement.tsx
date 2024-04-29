@@ -123,10 +123,14 @@ const DateTimePickerElement = forwardRef(function DateTimePickerElement<
   })
 
   const handleInputRef = useForkRef(field.ref, inputRef)
+  const defaultText =
+    typeof customErrorFn === 'function' ? customErrorFn(error as any) : error?.message ?? ''
+  const parsedHelperText = error ? defaultText : inputProps?.helperText || rest.helperText
 
   if (field?.value && typeof field?.value === 'string') {
     field.value = new Date(field.value) as any // need to see if this works for all localization adaptors
   }
+
   return (
     <DateTimePicker
       {...rest}
@@ -153,11 +157,7 @@ const DateTimePickerElement = forwardRef(function DateTimePickerElement<
           ...inputProps,
           required,
           error: !!error,
-          helperText: error
-            ? typeof customErrorFn === 'function'
-              ? customErrorFn(error)
-              : error.message
-            : inputProps?.helperText || rest.helperText,
+          helperText: parsedHelperText,
           inputProps: {
             readOnly: textReadOnly,
             ...inputProps?.inputProps

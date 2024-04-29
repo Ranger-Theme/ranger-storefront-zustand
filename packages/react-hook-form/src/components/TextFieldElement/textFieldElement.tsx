@@ -76,6 +76,9 @@ const TextFieldElement = forwardRef(function TextFieldElement<
   })
 
   const handleInputRef = useForkRef(field.ref, inputRef)
+  const defaultText =
+    typeof customErrorFn === 'function' ? customErrorFn(error as any) : error?.message ?? ''
+  const renderHelperText = error ? defaultText : rest.helperText
 
   return (
     <TextFieldComponent
@@ -92,13 +95,7 @@ const TextFieldElement = forwardRef(function TextFieldElement<
       required={required}
       type={type}
       error={!!error}
-      helperText={
-        error
-          ? typeof customErrorFn === 'function'
-            ? customErrorFn(error)
-            : error.message
-          : rest.helperText
-      }
+      helperText={renderHelperText}
       ref={ref}
       inputRef={handleInputRef}
     />

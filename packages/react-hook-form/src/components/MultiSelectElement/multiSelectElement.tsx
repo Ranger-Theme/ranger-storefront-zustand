@@ -114,11 +114,9 @@ const MultiSelectElement = forwardRef(function MultiSelectElement<
 
   const handleInputRef = useForkRef(field.ref, inputRef)
 
-  const renderHelperText = error
-    ? typeof customErrorFn === 'function'
-      ? customErrorFn(error)
-      : error.message
-    : helperText
+  const defaultText =
+    typeof customErrorFn === 'function' ? customErrorFn(error as any) : error?.message ?? ''
+  const renderHelperText = error ? defaultText : helperText
 
   return (
     <FormControl

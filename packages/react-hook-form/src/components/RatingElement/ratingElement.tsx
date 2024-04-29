@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
-import { useController } from 'react-hook-form'
-import { FormControl, FormHelperText, FormLabel, Slider } from '@mui/material'
+import { useController, useFormContext } from 'react-hook-form'
+import { FormControl, FormHelperText, FormLabel, Rating } from '@mui/material'
 import type { ReactNode, Ref, RefAttributes } from 'react'
 import type {
   Control,
@@ -9,14 +9,14 @@ import type {
   FieldValues,
   UseControllerProps
 } from 'react-hook-form'
-import type { FormControlProps, SliderProps } from '@mui/material'
+import type { FormControlProps, RatingProps } from '@mui/material'
 
 import { useFormError } from '../../providers/FormErrorProvider'
 
-export type SliderElementProps<
+export type RatingElementProps<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
-> = Omit<SliderProps, 'control'> & {
+> = Omit<RatingProps, 'name'> & {
   name: TName
   control?: Control<TFieldValues>
   label?: string
@@ -26,17 +26,17 @@ export type SliderElementProps<
   formControlProps?: FormControlProps
 }
 
-type SliderElementComponent = <
+type RatingElementComponent = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >(
-  props: SliderElementProps<TFieldValues, TName> & RefAttributes<HTMLDivElement>
+  props: RatingElementProps<TFieldValues, TName> & RefAttributes<HTMLDivElement>
 ) => JSX.Element
 
-const SliderElement = forwardRef(function SliderElement<
+const RatingElement = forwardRef(function RatingElement<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
->(props: SliderElementProps<TFieldValues, TName>, ref: Ref<HTMLDivElement>): JSX.Element {
+>(props: RatingElementProps<TFieldValues, TName>, ref: Ref<HTMLDivElement>): JSX.Element {
   const {
     name,
     control,
@@ -47,16 +47,18 @@ const SliderElement = forwardRef(function SliderElement<
     formControlProps,
     ...other
   } = props
-
+  const max: number = other?.max ?? 5
   const errorMsgFn = useFormError()
   const customErrorFn = parseError || errorMsgFn
 
-  const validationRules = {
+  const requiredMSg: string = 'This field is required'
+  const validationRules: UseControllerProps<TFieldValues, TName>['rules'] = {
     ...rules,
-    ...(required &&
-      !rules.required && {
-        required: 'This field is required'
-      })
+    ...(required && {
+      validate: (value: number) => {
+        return value > 0 || requiredMSg
+      }
+    })
   }
 
   const {
@@ -68,10 +70,15 @@ const SliderElement = forwardRef(function SliderElement<
     disabled: other.disabled,
     rules: validationRules
   })
+  const form = useFormContext()
 
   const defaultText =
     typeof customErrorFn === 'function' ? customErrorFn(error as any) : error?.message ?? ''
   const parsedHelperText = error ? defaultText : null
+
+  if (field.value > max) {
+    form.setValue(name, max as any)
+  }
 
   return (
     <FormControl error={invalid} required={required} fullWidth {...formControlProps} ref={ref}>
@@ -80,17 +87,22 @@ const SliderElement = forwardRef(function SliderElement<
           {label}
         </FormLabel>
       )}
-      <Slider
+      <Rating
         {...other}
-        value={field.value}
-        onChange={field.onChange}
-        valueLabelDisplay={other.valueLabelDisplay || 'auto'}
+        max={max}
+        value={Number(field.value)}
+        onChange={(ev: React.SyntheticEvent<any>, value: number | null) => {
+          field.onChange(value)
+          if (typeof other.onChange === 'function') {
+            other.onChange(ev, value)
+          }
+        }}
       />
       {parsedHelperText && <FormHelperText error={invalid}>{parsedHelperText}</FormHelperText>}
     </FormControl>
   )
 })
 
-SliderElement.displayName = 'SliderElement'
+RatingElement.displayName = 'RatingElement'
 
-export default SliderElement as SliderElementComponent
+export default RatingElement as RatingElementComponent

@@ -35,6 +35,9 @@ export type { PasswordRepeatElementProps } from './src/components/PasswordRepeat
 export { default as RadioGroupElement } from './src/components/RadioGroupElement'
 export type { RadioGroupElementProps } from './src/components/RadioGroupElement'
 
+export { default as RatingElement } from './src/components/RatingElement'
+export type { RatingElementProps } from './src/components/RatingElement'
+
 export { default as SelectElement } from './src/components/SelectElement'
 export type { SelectElementProps } from './src/components/SelectElement'
 
@@ -52,6 +55,9 @@ export type { TextFieldElementProps } from './src/components/TextFieldElement'
 
 export { default as TimePickerElement } from './src/components/TimePickerElement'
 export type { TimePickerElementProps } from './src/components/TimePickerElement'
+
+export { default as ToggleGroupElement } from './src/components/ToggleGroupElement'
+export type { ToggleGroupElementProps } from './src/components/ToggleGroupElement'
 
 export { default as DateFnsProvider } from './src/providers/DateFnsProvider'
 export type { DateFnsProviderProps } from './src/providers/DateFnsProvider'

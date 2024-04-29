@@ -87,11 +87,9 @@ const CheckboxGroupElement = forwardRef(function CheckboxGroupElement<
     control
   })
 
-  const renderHelperText = error
-    ? typeof customErrorFn === 'function'
-      ? customErrorFn(error)
-      : error.message
-    : helperText
+  const defaultText =
+    typeof customErrorFn === 'function' ? customErrorFn(error as any) : error?.message ?? ''
+  const renderHelperText = error ? defaultText : helperText
 
   const handleChange = (index: number | string) => {
     const newArray: (string | number)[] | any[] = [...value]

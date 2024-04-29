@@ -4,6 +4,7 @@ import {
   FormElement,
   PasswordElement,
   TextFieldElement,
+  RatingElement,
   useForm
 } from '@ranger-theme/react-hook-form'
 
@@ -13,6 +14,7 @@ type FormValues = {
   name: string
   password: string
   agreen: boolean
+  rating: number
 }
 
 const LoginPage = () => {
@@ -20,7 +22,8 @@ const LoginPage = () => {
     defaultValues: {
       name: '',
       password: '',
-      agreen: true
+      agreen: true,
+      rating: 0
     }
   })
 
@@ -35,6 +38,7 @@ const LoginPage = () => {
         <Stack>
           <TextFieldElement name="name" label="User Name" required />
           <PasswordElement name="password" label="Password" required />
+          <RatingElement name="rating" label="Rating" required />
           <AgreeTerms />
           <Button type="submit" color="primary">
             <span>Submit</span>

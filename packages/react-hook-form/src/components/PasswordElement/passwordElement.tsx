@@ -38,7 +38,7 @@ const PasswordElement = forwardRef(function PasswordElement<
       ref={ref}
       InputProps={{
         endAdornment: (
-          <InputAdornment position={'end'}>
+          <InputAdornment position="end">
             <IconButton
               onMouseDown={(e: MouseEvent<HTMLButtonElement>) => e.preventDefault()}
               onClick={() => setPassword(!password)}

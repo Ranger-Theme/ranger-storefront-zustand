@@ -85,11 +85,9 @@ const RadioGroupElement = forwardRef(function RadioGroupElement<
     control
   })
 
-  const renderHelperText = error
-    ? typeof customErrorFn === 'function'
-      ? customErrorFn(error)
-      : error.message
-    : helperText
+  const defaultText =
+    typeof customErrorFn === 'function' ? customErrorFn(error as any) : error?.message ?? ''
+  const renderHelperText = error ? defaultText : helperText
 
   const onRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
     const radioValue = type === 'number' ? Number(event.target.value) : event.target.value
