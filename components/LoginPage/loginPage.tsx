@@ -42,7 +42,7 @@ const LoginPage = () => {
           <TextFieldElement name="name" label="User Name" required />
           <PasswordElement name="password" label="Password" required />
           <RatingElement name="rating" label="Rating" required />
-          <FileUploadElement name="files" label="Upload Files" required multiple />
+          <FileUploadElement name="files" label="Upload Files" required />
           <AgreeTerms />
           <Button type="submit" color="primary">
             <span>Submit</span>

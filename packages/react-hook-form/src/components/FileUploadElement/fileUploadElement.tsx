@@ -1,7 +1,8 @@
-import { forwardRef, useCallback } from 'react'
+import { forwardRef } from 'react'
 import { useController, useFormContext } from 'react-hook-form'
 import { useDropzone } from 'react-dropzone'
 import { FormControl, FormHelperText, FormLabel } from '@mui/material'
+import { UploadFile, DeleteForever } from '@mui/icons-material'
 import type { ReactNode, Ref, RefAttributes } from 'react'
 import type {
   Control,
@@ -76,15 +77,17 @@ const FileUploadElement = forwardRef(function UploadElement<
   const renderHelperText = error ? defaultText : null
   const files: File[] = field.value || []
 
-  const onDrop = useCallback(
-    (droppedFiles: File[], fileRejections: any[], event: any) => {
-      setValue(name, droppedFiles as any, { shouldValidate: true })
-      if (other?.onDrop) {
-        other?.onDrop(droppedFiles, fileRejections, event)
-      }
-    },
-    [setValue, name]
-  )
+  const onDrop = (droppedFiles: File[], fileRejections: any[], event: any) => {
+    setValue(name, droppedFiles as any, { shouldValidate: true })
+    if (other?.onDrop) {
+      other?.onDrop(droppedFiles, fileRejections, event)
+    }
+  }
+
+  const onRemove = (key: number) => {
+    const filteredFiles = files.filter((__, index) => index !== key)
+    setValue(name, filteredFiles as any, { shouldValidate: true })
+  }
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ ...other, onDrop })
 
@@ -103,12 +106,14 @@ const FileUploadElement = forwardRef(function UploadElement<
         {isDragActive ? (
           <span className="fs-16">Drop the files here ... </span>
         ) : (
-          <span className="fs-16">Select files </span>
+          <span className="fs-16">
+            <UploadFile />
+          </span>
         )}
       </div>
       {!!files?.length && (
         <div className="grid gap-1 grid-cols-4 mt-2">
-          {files.map((file) => {
+          {files.map((file: File, key: number) => {
             return (
               <div key={file.name}>
                 <picture>
@@ -118,6 +123,10 @@ const FileUploadElement = forwardRef(function UploadElement<
                     style={{ width: '100px', height: '100px' }}
                   />
                 </picture>
+                <p>
+                  {file.name} - {(file.size / 1024, 2).toFixed(2)}kb
+                </p>
+                <DeleteForever onClick={() => onRemove(key)} />
               </div>
             )
           })}
