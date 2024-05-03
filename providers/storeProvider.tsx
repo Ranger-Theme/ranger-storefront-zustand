@@ -27,7 +27,7 @@ export const useStore = <T,>(selector: (store: NextStore) => T): T => {
   const store = useContext(StoreContext)
 
   if (!store) {
-    throw new Error(`useNextStore must be use within AppStoreProvider`)
+    throw new Error('useNextStore must be use within StoreProvider')
   }
 
   return useZustandStore(store, selector)

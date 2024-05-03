@@ -10,5 +10,8 @@
   },
   "Orders": {
     "ordered": "Temps de commande {orderDate, date, short}"
+  },
+  "Checkout": {
+    "shipping": "Shipping Address"
   }
 }

@@ -14,6 +14,7 @@ import type { I18nState, I18nActions, I18nStore } from './i18n'
 
 declare global {
   interface Window {
+    // eslint-disable-next-line no-use-before-define
     __ZUSTAND_STORE__: StoreApi<NextStore>
   }
 }

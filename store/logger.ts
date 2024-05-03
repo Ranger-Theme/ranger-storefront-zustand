@@ -13,7 +13,7 @@ type LoggerImpl = <T>(fn: StateCreator<T, [], []>, name?: string) => StateCreato
 
 const loggerImpl: LoggerImpl = (fn, name) => (set, get, store) => {
   const loggedSet: typeof set = (...args) => {
-    console.log(...(name ? [`${name}: applying`] : []), args)
+    console.info(...(name ? [`${name}: applying`] : []), args)
     set(...args)
 
     const state: any = store.getState()
@@ -24,13 +24,13 @@ const loggerImpl: LoggerImpl = (fn, name) => (set, get, store) => {
       }
     })
 
-    console.log(...(name ? [`${name}: new state`] : []), newState)
+    console.info(...(name ? [`${name}: new state`] : []), newState)
   }
-  const setState = store.setState
+  const { setState } = store
   store.setState = (...args) => {
-    console.log(...(name ? [`${name}: applying`] : []), args)
+    console.info(...(name ? [`${name}: applying`] : []), args)
     setState(...args)
-    console.log(...(name ? [`${name}: new state`] : []), store.getState())
+    console.info(...(name ? [`${name}: new state`] : []), store.getState())
   }
 
   return fn(loggedSet, get, store)

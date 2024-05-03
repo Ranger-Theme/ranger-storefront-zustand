@@ -56,6 +56,7 @@ const RegisterPage = () => {
 
   const handleOnSuccess = (values: FormValues) => {
     console.info(format(values.account.date, 'yyyy-MM-dd'))
+    console.info(values)
   }
 
   return (

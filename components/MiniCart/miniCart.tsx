@@ -21,10 +21,10 @@ const MiniCart = () => {
   }
 
   return (
-    <div>
+    <div className="flex justify-between align-middle">
       {cart?.cartId && <p>{cart.cartId}</p>}
       <p>{t('qty', { qty: 2 })}</p>
-      <div>
+      <div className="flex-1">
         {t.rich('message', {
           partner: (chunks: any) => <Link href={t('partnerHref')}>{chunks}</Link>
         })}
