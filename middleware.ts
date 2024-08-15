@@ -2,7 +2,7 @@ import { NextResponse, userAgent } from 'next/server'
 import type { NextRequest, NextMiddleware } from 'next/server'
 
 export const middleware: NextMiddleware = (request: NextRequest) => {
-  const { headers, nextUrl } = request
+  const { headers } = request
   const { isBot, device, ua } = userAgent(request)
   const { type, model } = device
   const isGoogleBolt: boolean = ua.indexOf('Googlebot') > -1

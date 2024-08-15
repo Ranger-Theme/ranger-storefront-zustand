@@ -1,5 +1,5 @@
 {
-  "extends": "@ranger-theme/typescript-config/nextjs.json",
+  "extends": "@ranger-theme/ts-config/nextjs.json",
   "compilerOptions": {
     "paths": {
       "@/*": ["./*"]

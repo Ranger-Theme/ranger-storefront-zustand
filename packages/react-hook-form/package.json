@@ -6,7 +6,7 @@
     "react-hook-form": "^7.51.3"
   },
   "devDependencies": {
-    "@ranger-theme/typescript-config": "workspace:^",
+    "@ranger-theme/ts-config": "^0.1.0",
     "tsup": "^8.0.2"
   },
   "peerDependencies": {
