@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  nextjs:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - '3000:3000'
+    networks:
+      - next-app
+
+  nginx:
+    build: 
+      context: ..
+      dockerfile: docker/nginx/Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - nextjs
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - next-app
+
+networks:
+  next-app:
+    external: true

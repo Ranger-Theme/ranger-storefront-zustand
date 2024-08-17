@@ -1,54 +1,46 @@
 {
-  "name": "ranger-storefront-zustand",
+  "name": "@ranger-theme/zustand",
   "version": "0.1.0",
   "private": true,
+  "config": {
+    "cz-customizable": {
+      "config": "./.cz-config.js"
+    }
+  },
   "scripts": {
-    "dev": "next dev -H 127.0.0.1 -p 3000",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "deploy": "pm2 start pm2.config.js",
-    "show": "pm2 list",
-    "clean": "rimraf node_modules"
+   "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "preinstall": "npx only-allow pnpm",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "clean": "pnpm run clean:turbo && pnpm run clean:node_modules && pnpm run clean:next",
+    "clean:turbo": "find . -name '.turbo' -type d -prune -exec rm -rf '{}' +",
+    "clean:node_modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
+    "clean:next": "find . -name '.next' -type d -prune -exec rm -rf '{}' +",
+    "clean:dist": "find . -name 'dist' -type d -prune -exec rm -rf '{}' +",
+    "ngrok": "node ./ngrok.js",
+    "husky:prepare": "husky install"
   },
   "dependencies": {
-    "@emotion/cache": "^11.11.0",
-    "@emotion/react": "^11.11.4",
-    "@emotion/server": "^11.11.0",
-    "@emotion/styled": "^11.11.5",
-    "@mui/icons-material": "^5.15.15",
-    "@mui/material": "^5.15.15",
-    "@mui/material-nextjs": "^5.15.11",
-    "@mui/x-date-pickers": "^6.19.9",
-    "@ranger-theme/react-hook-form": "workspace:^",
-    "@tanstack/react-query": "^5.29.2",
-    "@tanstack/react-query-devtools": "^5.29.2",
-    "date-fns": "^2.30.0",
-    "graphql-request": "^6.1.0",
-    "http-proxy-middleware": "^3.0.0",
-    "lodash-es": "^4.17.21",
-    "next": "^14.2.1",
-    "next-intl": "^3.11.3",
-    "notistack": "^3.0.1",
-    "pm2": "^5.3.1",
-    "postcss": "^8.4.38",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-dropzone": "^14.2.3",
-    "tailwindcss": "^3.4.3",
-    "zustand": "^4.5.2"
+    "ngrok": "5.0.0-beta.2",
+    "only-allow": "^1.2.1"
   },
   "devDependencies": {
-    "@ranger-theme/eslint-config": "^0.8.0",
+    "@changesets/cli": "^2.26.2",
+    "@ranger-theme/branchlint-config": "^0.1.0",
+    "@ranger-theme/commitizen-config": "^0.2.0",
+    "@ranger-theme/commitlint-config": "^0.4.0",
+    "@ranger-theme/eslint-config": "^0.5.0",
     "@ranger-theme/prettier-config": "^0.2.0",
+    "@ranger-theme/stylelint-config": "^0.3.0",
     "@ranger-theme/ts-config": "^0.1.0",
-    "@types/lodash-es": "^4.17.12",
-    "@types/node": "^20.12.7",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
     "eslint": "^8.2.0",
-    "prettier": "^3.2.5",
-    "rimraf": "^5.0.5",
-    "typescript": "^5.4.5"
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "turbo": "^2.0.9"
+  },
+  "packageManager": "pnpm@8.9.0",
+  "engines": {
+    "node": ">=18.17.0"
   }
 }
