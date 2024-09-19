@@ -12,12 +12,9 @@ export default defineConfig((options: Options) => {
     watch: options.watch,
     sourcemap: !!options.watch,
     format: ['esm', 'cjs'],
-    external: ['react', 'react-dom', '@emotion/react', '@emotion/styled'],
-    minify: 'terser',
+    external: ['react', 'react-dom'],
+    minify: !options.watch,
     cjsInterop: true,
-    terserOptions: {
-      compress: true
-    },
     outExtension({ format }) {
       return {
         js: `.${format}.js`

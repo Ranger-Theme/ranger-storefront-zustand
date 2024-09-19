@@ -1,0 +1,16 @@
+{
+  "name": "@ranger-theme/zustand",
+  "version": "0.0.0",
+  "sideEffects": false,
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@ranger-theme/eslint-config": "^0.5.0",
+    "@ranger-theme/ts-config": "^0.1.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  }
+}

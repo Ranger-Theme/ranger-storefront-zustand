@@ -1,35 +1,32 @@
-<!--
- * @Copyright: @ Silk Software Corp. All Rights Reserved
--->
-# @ranger-theme/ui
+# @ranger-theme/mui-hook-form
 
 <p>
-  <a href='https://www.npmjs.com/package/@ranger-theme/ui'><img src='https://img.shields.io/npm/v/@ranger-theme/ui.svg' alt='Latest npm version'></a>
+  <a href='https://www.npmjs.com/package/@ranger-theme/mui-hook-form'><img src='https://img.shields.io/npm/v/@ranger-theme/mui-hook-form.svg' alt='Latest npm version'></a>
 </p>
 
 ## 🎉 Introduce
 
-> ui工具
+> mui-hook-form工具
 
 ## 📚 Documentation
 
-- [Npm](https://www.npmjs.com/package/@ranger-theme/ui)
+- [Npm](https://www.npmjs.com/package/@ranger-theme/mui-hook-form)
 - [CHANGELOG](CHANGELOG.md)
 
 ## 📦 Install
 
 ```bash
-$ npm install --save-dev @ranger-theme/ui
+$ npm install --save-dev @ranger-theme/mui-hook-form
 # or
-$ yarn add --save-dev @ranger-theme/ui
+$ yarn add --save-dev @ranger-theme/mui-hook-form
 # or
-$ pnpm add --save-dev @ranger-theme/ui
+$ pnpm add --save-dev @ranger-theme/mui-hook-form
 ```
 
 ## 🔨 Usage
 
 ```js
-import { CopyBoard, CountDown, CsvLink, HeadRoom, InfiniteScroll, Player, Portal, PrintScreen } from '@ranger-theme/ui'
+import { CopyBoard, CountDown, CsvLink, HeadRoom, InfiniteScroll, Player, Portal, PrintScreen } from '@ranger-theme/mui-hook-form'
 ```
 
 ### nextjs dynimac import
@@ -37,14 +34,14 @@ import { CopyBoard, CountDown, CsvLink, HeadRoom, InfiniteScroll, Player, Portal
 import dynamic from 'next/dynamic'
 
 const CsvLink = dynamic(
-  import('@ranger-theme/ui').then((module) => module.CsvLink),
+  import('@ranger-theme/mui-hook-form').then((module) => module.CsvLink),
   {
     ssr: false
   }
 )
 
 const MediaQuery = dynamic(
-  import('@ranger-theme/ui').then((module) => module.MediaQuery),
+  import('@ranger-theme/mui-hook-form').then((module) => module.MediaQuery),
   {
     ssr: false
   }
